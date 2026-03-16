@@ -1,0 +1,1523 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Plan B Office — Luxury Contract Furniture, Toronto</title>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;1,300;1,400&family=Jost:wght@200;300;400;500&display=swap" rel="stylesheet">
+<style>
+/* ─── TOKENS ───────────────────────────────────────── */
+:root {
+  --cream:       #F5F0E8;
+  --warm-white:  #FAFAF7;
+  --charcoal:    #1A1A18;
+  --mid:         #5A5750;
+  --light:       #C8C0B4;
+  --gold:        #B89A6A;
+  --gold-light:  #D4B896;
+  --accent:      #8C7355;
+}
+
+/* ─── RESET ─────────────────────────────────────────── */
+*, *::before, *::after { margin:0; padding:0; box-sizing:border-box; }
+html  { scroll-behavior:smooth; }
+body  { font-family:'Jost',sans-serif; background:var(--warm-white); color:var(--charcoal); overflow-x:hidden; }
+img   { display:block; max-width:100%; }
+a     { cursor:pointer; }
+button{ cursor:pointer; font-family:inherit; }
+
+/* ─── CUSTOM CURSOR (desktop only) ──────────────────── */
+@media(hover:hover){
+  body { cursor:none; }
+  a,button,label,[role=button],select,input { cursor:none; }
+}
+.cur-dot  { width:9px;height:9px;background:var(--gold);border-radius:50%;position:fixed;top:0;left:0;pointer-events:none;z-index:9999;transform:translate(-50%,-50%); }
+.cur-ring { width:34px;height:34px;border:1px solid rgba(184,154,106,.6);border-radius:50%;position:fixed;top:0;left:0;pointer-events:none;z-index:9998;transform:translate(-50%,-50%);transition:transform .08s linear; }
+
+/* ─── NAV ────────────────────────────────────────────── */
+nav {
+  position:fixed;top:0;left:0;right:0;z-index:200;
+  display:flex;align-items:center;justify-content:space-between;
+  padding:26px 56px;
+  transition:background .4s,padding .4s,box-shadow .4s;
+}
+nav.scrolled {
+  background:rgba(250,250,247,.97);
+  backdrop-filter:blur(14px);
+  padding:16px 56px;
+  box-shadow:0 1px 0 var(--light);
+}
+.nav-logo {
+  display:flex;align-items:center;
+  text-decoration:none;flex-shrink:0;
+}
+/* Fallback text — always visible, image overlays it if it loads */
+.nav-logo .logo-txt {
+  font-family:'Cormorant Garamond',serif;font-weight:300;
+  font-size:1.5rem;letter-spacing:.28em;text-transform:lowercase;
+  color:var(--cream);transition:color .4s;white-space:nowrap;
+}
+nav.scrolled .nav-logo .logo-txt { color:var(--charcoal); }
+/* If the real image loads, it sits on top via absolute positioning */
+.nav-logo img {
+  position:absolute;
+  height:32px;width:auto;
+  transition:filter .4s;
+}
+
+.nav-links { display:flex;gap:32px;list-style:none;align-items:center; }
+.nav-links a {
+  font-weight:300;font-size:.7rem;letter-spacing:.18em;text-transform:uppercase;
+  color:rgba(245,240,232,.82);text-decoration:none;position:relative;
+  transition:color .3s;white-space:nowrap;
+}
+nav.scrolled .nav-links a { color:var(--mid); }
+.nav-links a:not(.nav-cta)::after {
+  content:'';position:absolute;bottom:-4px;left:0;width:0;height:1px;
+  background:var(--gold);transition:width .3s;
+}
+.nav-links a:hover::after { width:100%; }
+.nav-links a:hover { color:var(--gold); }
+.nav-cta {
+  color:var(--gold)!important;
+  border:1px solid var(--gold);
+  padding:8px 20px;
+  transition:background .3s,color .3s!important;
+}
+.nav-cta:hover { background:var(--gold)!important;color:var(--charcoal)!important; }
+
+/* ─── HERO ───────────────────────────────────────────── */
+#hero {
+  height:100vh;min-height:600px;
+  position:relative;display:flex;align-items:flex-end;
+  overflow:hidden;background:var(--charcoal);
+}
+.hero-bg {
+  position:absolute;inset:0;
+  background:url('https://images.unsplash.com/photo-1497366216548-37526070297c?auto=format&fit=crop&w=1920&q=80') center 35%/cover no-repeat;
+  opacity:.52;transform:scale(1.04);
+  animation:heroZoom 14s ease-out forwards;
+}
+@keyframes heroZoom { to { transform:scale(1); } }
+.hero-grad {
+  position:absolute;inset:0;
+  background:linear-gradient(to top,rgba(26,26,24,.88) 0%,rgba(26,26,24,.12) 55%,transparent 100%);
+}
+.hero-content {
+  position:relative;z-index:2;
+  padding:0 56px 88px;max-width:780px;
+}
+.eyebrow {
+  display:block;font-size:.66rem;letter-spacing:.3em;text-transform:uppercase;
+  color:var(--gold);font-weight:400;margin-bottom:22px;
+}
+.hero-title {
+  font-family:'Cormorant Garamond',serif;font-weight:300;
+  font-size:clamp(3.2rem,6vw,5.8rem);line-height:1.03;
+  color:var(--cream);margin-bottom:26px;
+}
+.hero-title em { font-style:italic;color:var(--gold-light); }
+.hero-sub {
+  font-size:.9rem;font-weight:300;color:rgba(245,240,232,.68);
+  line-height:1.95;max-width:500px;margin-bottom:44px;
+  opacity:0;animation:fadeUp .9s 1.1s ease forwards;
+}
+.hero-title,.eyebrow { opacity:0; }
+.eyebrow  { animation:fadeUp .9s .5s ease forwards; }
+.hero-title { animation:fadeUp .9s .8s ease forwards; }
+.hero-btns  { display:flex;gap:14px;flex-wrap:wrap;opacity:0;animation:fadeUp .9s 1.4s ease forwards; }
+@keyframes fadeUp { from{opacity:0;transform:translateY(28px)} to{opacity:1;transform:translateY(0)} }
+
+.btn-gold {
+  display:inline-flex;align-items:center;gap:8px;
+  background:var(--gold);color:var(--charcoal);
+  font-size:.68rem;letter-spacing:.2em;text-transform:uppercase;font-weight:500;
+  padding:15px 38px;text-decoration:none;border:none;
+  transition:background .3s,transform .2s;
+}
+.btn-gold:hover { background:var(--gold-light);transform:translateY(-2px); }
+.btn-outline-light {
+  display:inline-flex;align-items:center;
+  border:1px solid rgba(245,240,232,.4);color:var(--cream);
+  font-size:.68rem;letter-spacing:.2em;text-transform:uppercase;font-weight:300;
+  padding:15px 38px;text-decoration:none;
+  transition:border-color .3s,background .3s;
+}
+.btn-outline-light:hover { border-color:var(--gold);background:rgba(184,154,106,.1); }
+
+.hero-scroll {
+  position:absolute;right:56px;bottom:72px;z-index:2;
+  display:flex;flex-direction:column;align-items:center;gap:9px;
+  opacity:0;animation:fadeIn .8s 2s ease forwards;
+}
+.hero-scroll span {
+  font-size:.58rem;letter-spacing:.24em;text-transform:uppercase;
+  color:rgba(200,192,180,.7);writing-mode:vertical-rl;
+}
+.scroll-line {
+  width:1px;height:48px;background:var(--gold);
+  animation:scrollPulse 2.2s infinite;
+}
+@keyframes scrollPulse { 0%,100%{opacity:.3;transform:scaleY(1)} 50%{opacity:1;transform:scaleY(1.35)} }
+@keyframes fadeIn { from{opacity:0} to{opacity:1} }
+
+/* ─── STATS BAR ──────────────────────────────────────── */
+#stats { background:var(--charcoal); }
+.stats-inner {
+  display:grid;grid-template-columns:repeat(4,1fr);
+  border-top:1px solid rgba(200,192,180,.1);
+  max-width:100%;
+}
+.stat-item {
+  padding:36px 20px;text-align:center;
+  border-right:1px solid rgba(200,192,180,.1);
+}
+.stat-item:last-child { border-right:none; }
+.stat-num {
+  font-family:'Cormorant Garamond',serif;font-size:2.8rem;
+  font-weight:300;color:var(--gold-light);line-height:1;
+}
+.stat-label {
+  font-size:.62rem;letter-spacing:.2em;text-transform:uppercase;
+  color:var(--mid);margin-top:7px;
+}
+
+/* ─── SECTION UTILITY ────────────────────────────────── */
+.sec-header { text-align:center;margin-bottom:60px; }
+.sec-eye {
+  display:block;font-size:.63rem;letter-spacing:.3em;text-transform:uppercase;
+  color:var(--gold);margin-bottom:14px;
+}
+.sec-title {
+  font-family:'Cormorant Garamond',serif;font-weight:300;
+  font-size:clamp(1.9rem,3.2vw,2.9rem);line-height:1.2;
+}
+.sec-title em { font-style:italic; }
+.sec-rule { width:44px;height:1px;background:var(--gold);margin:18px auto 0; }
+
+/* ─── INTRO SPLIT ─────────────────────────────────────── */
+#intro { display:grid;grid-template-columns:1fr 1fr; }
+.intro-img {
+  position:relative;overflow:hidden;
+  min-height:560px; /* prevent collapse */
+}
+.intro-img img {
+  width:100%;height:100%;object-fit:cover;
+  transition:transform .9s ease;
+}
+.intro-img:hover img { transform:scale(1.04); }
+.intro-text {
+  background:var(--charcoal);
+  display:flex;flex-direction:column;justify-content:center;
+  padding:80px 72px;
+}
+.intro-text .sec-eye,.intro-text .sec-title { text-align:left; }
+.intro-text .sec-title { color:var(--cream); }
+.intro-text .sec-rule  { margin:18px 0 0; }
+.intro-body {
+  margin-top:28px;font-size:.9rem;font-weight:300;
+  color:rgba(245,240,232,.6);line-height:2;
+}
+.intro-clients {
+  margin-top:36px;padding-top:30px;
+  border-top:1px solid rgba(245,240,232,.1);
+}
+.clients-label {
+  font-size:.6rem;letter-spacing:.24em;text-transform:uppercase;
+  color:var(--gold);margin-bottom:12px;display:block;
+}
+.clients-list {
+  font-size:.78rem;font-weight:300;
+  color:var(--light);line-height:2.1;letter-spacing:.04em;
+}
+
+/* ─── IMAGE STRIP ─────────────────────────────────────── */
+#image-strip {
+  display:grid;grid-template-columns:repeat(5,1fr);
+  height:300px;
+}
+.strip-cell {
+  position:relative;overflow:hidden;
+}
+.strip-cell img {
+  width:100%;height:100%;object-fit:cover;
+  transition:transform .8s ease,opacity .45s;
+}
+.strip-cell:hover img { transform:scale(1.07);opacity:.72; }
+.strip-label {
+  position:absolute;bottom:0;left:0;right:0;
+  padding:32px 14px 12px;
+  background:linear-gradient(to top,rgba(26,26,24,.82) 0%,transparent 100%);
+  font-size:.58rem;letter-spacing:.2em;text-transform:uppercase;
+  color:var(--cream);
+  opacity:0;transition:opacity .35s;
+}
+.strip-cell:hover .strip-label { opacity:1; }
+
+/* ─── BRANDS ──────────────────────────────────────────── */
+#brands { padding:112px 56px;background:var(--cream); }
+.brands-grid {
+  display:grid;
+  grid-template-columns:repeat(3,1fr);
+  gap:6px;
+  margin-top:60px;
+}
+/* Every card identical — strict 4/3, no exceptions */
+.brand-card {
+  position:relative;overflow:hidden;
+  aspect-ratio:4/3;
+  background:var(--charcoal);
+}
+.brand-card img {
+  width:100%;height:100%;
+  object-fit:cover;object-position:center;
+  opacity:.72;
+  transition:opacity .6s,transform .8s;
+}
+.brand-card:hover img { opacity:.35;transform:scale(1.06); }
+.brand-inner {
+  position:absolute;inset:0;
+  display:flex;flex-direction:column;justify-content:flex-end;
+  padding:28px 32px;
+  background:linear-gradient(to top,rgba(26,26,24,.88) 0%,rgba(26,26,24,.1) 60%,transparent 100%);
+  transition:background .5s;
+}
+.brand-card:hover .brand-inner {
+  background:linear-gradient(to top,rgba(26,26,24,.96) 0%,rgba(26,26,24,.5) 100%);
+}
+.brand-origin { font-size:.58rem;letter-spacing:.24em;text-transform:uppercase;color:var(--gold);margin-bottom:6px; }
+.brand-name {
+  font-family:'Cormorant Garamond',serif;font-weight:300;
+  font-size:1.85rem;color:var(--cream);letter-spacing:.03em;margin-bottom:6px;
+}
+.brand-tagline {
+  font-size:.72rem;font-weight:300;color:rgba(245,240,232,.8);
+  opacity:0;transform:translateY(8px);
+  transition:opacity .35s .06s,transform .35s .06s;
+  line-height:1.5;
+}
+.brand-card:hover .brand-tagline { opacity:1;transform:translateY(0); }
+.brand-ext {
+  position:absolute;top:18px;right:18px;
+  width:32px;height:32px;border:1px solid rgba(184,154,106,.7);
+  display:flex;align-items:center;justify-content:center;
+  opacity:0;transform:translateY(-6px);
+  transition:opacity .32s,transform .32s;
+  text-decoration:none;color:var(--gold);font-size:.82rem;
+  background:rgba(26,26,24,.4);
+}
+.brand-card:hover .brand-ext { opacity:1;transform:translateY(0); }
+
+/* ─── GALLERY ─────────────────────────────────────────── */
+#gallery { padding:112px 0 80px;background:var(--warm-white); }
+.gallery-header { padding:0 56px;margin-bottom:48px; }
+
+/* Tabs — wrappable */
+.gallery-tabs {
+  display:flex;flex-wrap:wrap;gap:0;
+  border-bottom:1px solid var(--light);
+  padding:0 56px;margin-bottom:36px;
+}
+.gtab {
+  font-size:.66rem;letter-spacing:.18em;text-transform:uppercase;
+  font-weight:400;color:var(--mid);
+  padding:11px 20px;
+  background:none;border:none;
+  border-bottom:2px solid transparent;margin-bottom:-1px;
+  transition:color .25s,border-color .25s;
+  white-space:nowrap;
+}
+.gtab.on  { color:var(--gold);border-bottom-color:var(--gold); }
+.gtab:hover { color:var(--charcoal); }
+
+/* Uniform 4-col grid — every card identical aspect-ratio, NO spanning */
+.gal-grid {
+  display:grid;
+  grid-template-columns:repeat(4,1fr);
+  gap:8px;
+  padding:0 56px;
+}
+.gal-item {
+  position:relative;overflow:hidden;
+  background:var(--charcoal);
+  aspect-ratio:4/3;
+}
+.gal-item.hide { display:none; }
+
+/* ── IMAGE FIT SYSTEM ──────────────────────────────────────
+   Auto-applied by JS after each image loads.
+   landscape (w > h)   → cover, centered          ← default
+   nearSquare (0.8–1.3)→ cover, center top        ← chair/product shots
+   portrait   (h > w)  → contain + blurred bg     ← tall product images
+──────────────────────────────────────────────────────────── */
+.gal-item img {
+  width:100%;height:100%;
+  object-fit:cover;object-position:center center;
+  transition:transform .65s ease,opacity .35s;
+}
+/* Portrait/square: blurred bg layer fills the letterbox gaps */
+.gal-item.img-portrait {
+  background:var(--charcoal);
+}
+.gal-item.img-portrait img {
+  object-fit:contain;
+  object-position:center center;
+  position:relative;z-index:1;
+  padding:6px;
+}
+/* Near-square product shots: show top of subject */
+.gal-item.img-square img {
+  object-fit:cover;
+  object-position:center 20%;
+}
+.gal-item:hover img { transform:scale(1.05);opacity:.84; }
+/* Blur background div — inserted by JS for portrait images */
+.img-blur-bg {
+  position:absolute;inset:-24px;z-index:0;
+  background-size:cover;background-position:center;
+  filter:blur(20px) brightness(.4) saturate(.5);
+  pointer-events:none;
+}
+.gal-overlay,.gal-expand { z-index:2;position:absolute; }
+.gal-overlay {
+  position:absolute;inset:0;
+  background:linear-gradient(to top,rgba(26,26,24,.85) 0%,transparent 50%);
+  opacity:0;transition:opacity .32s;
+  display:flex;flex-direction:column;justify-content:flex-end;
+  padding:14px 16px;
+}
+.gal-item:hover .gal-overlay { opacity:1; }
+.gal-brand { font-size:.56rem;letter-spacing:.2em;text-transform:uppercase;color:var(--gold);margin-bottom:3px; }
+.gal-cap   { font-size:.7rem;font-weight:300;color:var(--cream);line-height:1.35; }
+.gal-expand {
+  position:absolute;top:9px;right:9px;
+  width:26px;height:26px;
+  background:rgba(26,26,24,.72);border:none;
+  color:white;font-size:.7rem;
+  display:flex;align-items:center;justify-content:center;
+  opacity:0;transition:opacity .28s,background .2s;
+}
+.gal-item:hover .gal-expand { opacity:1; }
+.gal-expand:hover { background:var(--gold); }
+
+.gal-more { text-align:center;padding:48px 0 0; }
+.btn-outline-dark {
+  display:inline-block;
+  border:1px solid var(--charcoal);color:var(--charcoal);
+  font-size:.66rem;letter-spacing:.2em;text-transform:uppercase;
+  padding:13px 44px;background:none;font-family:'Jost',sans-serif;
+  transition:background .3s,color .3s;
+}
+.btn-outline-dark:hover { background:var(--charcoal);color:var(--cream); }
+
+/* ─── FEATURED ROOM (CSS crossfade via opacity) ───────── */
+#featured {
+  position:relative;height:66vh;min-height:460px;
+  overflow:hidden;display:flex;align-items:center;
+}
+/* Stacked bg layers, fade via opacity */
+.f-layer {
+  position:absolute;inset:0;background-size:cover;background-position:center;
+  opacity:0;transition:opacity .9s ease;
+}
+.f-layer.on { opacity:1; }
+.f-grad {
+  position:absolute;inset:0;
+  background:linear-gradient(135deg,rgba(26,26,24,.88) 0%,rgba(26,26,24,.28) 55%,transparent 100%);
+  z-index:1;
+}
+.f-content {
+  position:relative;z-index:2;padding:0 72px;max-width:540px;
+}
+.f-content .sec-eye { text-align:left; }
+.f-content h2 {
+  font-family:'Cormorant Garamond',serif;font-weight:300;
+  font-size:clamp(1.9rem,3vw,3rem);color:var(--cream);
+  line-height:1.2;margin-bottom:18px;
+}
+.f-content p {
+  font-size:.87rem;font-weight:300;
+  color:rgba(245,240,232,.7);line-height:1.92;margin-bottom:30px;
+}
+.f-dots {
+  position:absolute;right:56px;top:50%;transform:translateY(-50%);
+  z-index:2;display:flex;flex-direction:column;gap:9px;
+}
+.f-dot {
+  width:7px;height:7px;border-radius:50%;
+  background:rgba(245,240,232,.28);
+  border:none;padding:0;
+  transition:background .3s,transform .3s;
+}
+.f-dot.on { background:var(--gold);transform:scale(1.45); }
+
+/* ─── COLLECTIONS ─────────────────────────────────────── */
+#collections { padding:112px 56px;background:var(--charcoal); }
+#collections .sec-title { color:var(--cream); }
+
+.col-grid {
+  display:grid;
+  grid-template-columns:repeat(4,1fr);
+  gap:10px;
+  margin-top:60px;
+}
+/* Every card identical — strict 3/4 portrait ratio, uniform height */
+.col-card {
+  position:relative;overflow:hidden;
+  background:#1a1a18;
+  aspect-ratio:3/4;
+}
+.col-card img {
+  width:100%;height:100%;
+  object-fit:cover;object-position:center 30%;
+  opacity:.72;transition:opacity .55s,transform .75s;
+}
+.col-card:hover img { opacity:.4;transform:scale(1.05); }
+.col-overlay {
+  position:absolute;inset:0;
+  display:flex;flex-direction:column;justify-content:flex-end;
+  padding:24px 22px;
+  background:linear-gradient(to top,rgba(26,26,24,.92) 0%,transparent 55%);
+}
+.col-cat   { font-size:.58rem;letter-spacing:.24em;text-transform:uppercase;color:var(--gold);margin-bottom:5px; }
+.col-name  { font-family:'Cormorant Garamond',serif;font-size:1.45rem;font-weight:300;color:var(--cream);margin-bottom:3px; }
+.col-count {
+  font-size:.66rem;font-weight:300;color:var(--light);
+  opacity:0;transform:translateY(7px);
+  transition:opacity .28s,transform .28s;
+}
+.col-card:hover .col-count { opacity:1;transform:translateY(0); }
+
+/* ─── PROJECTS ────────────────────────────────────────── */
+#projects { padding:112px 0;background:var(--warm-white); }
+#projects .sec-header { padding:0 56px; }
+.proj-slider {
+  display:flex;gap:18px;
+  overflow-x:auto;padding:48px 56px 20px;
+  scrollbar-width:thin;scrollbar-color:var(--light) transparent;
+  -webkit-overflow-scrolling:touch;
+}
+.proj-slider::-webkit-scrollbar { height:4px; }
+.proj-slider::-webkit-scrollbar-track { background:transparent; }
+.proj-slider::-webkit-scrollbar-thumb { background:var(--light); }
+.proj-card {
+  flex:0 0 380px;background:var(--charcoal);overflow:hidden;
+}
+.proj-card img {
+  width:100%;aspect-ratio:4/3;object-fit:cover;
+  opacity:.78;transition:opacity .45s,transform .65s;
+  display:block;
+}
+.proj-card:hover img { opacity:.5;transform:scale(1.04); }
+.proj-info { padding:20px 24px 24px; }
+.proj-client { font-size:.58rem;letter-spacing:.24em;text-transform:uppercase;color:var(--gold);margin-bottom:5px; }
+.proj-name   { font-family:'Cormorant Garamond',serif;font-size:1.3rem;font-weight:300;color:var(--cream);margin-bottom:4px; }
+.proj-loc    { font-size:.68rem;font-weight:300;color:var(--light); }
+
+/* ─── PROCESS ─────────────────────────────────────────── */
+#process { padding:112px 56px;background:var(--cream); }
+.proc-steps {
+  display:grid;grid-template-columns:repeat(4,1fr);
+  gap:36px;margin-top:60px;
+}
+.proc-step { text-align:center;padding:0 8px; }
+.proc-num {
+  font-family:'Cormorant Garamond',serif;font-size:3.8rem;font-weight:300;
+  color:var(--gold-light);line-height:1;margin-bottom:14px;
+}
+.proc-title { font-size:.72rem;letter-spacing:.2em;text-transform:uppercase;color:var(--charcoal);font-weight:500;margin-bottom:10px; }
+.proc-desc  { font-size:.8rem;font-weight:300;color:var(--mid);line-height:1.85; }
+
+/* ─── CONTACT ─────────────────────────────────────────── */
+#contact { display:grid;grid-template-columns:1fr 1fr; }
+.c-left {
+  background:var(--charcoal);
+  padding:96px 72px;
+  display:flex;flex-direction:column;justify-content:center;
+}
+.c-left .sec-eye,.c-left .sec-title { text-align:left; }
+.c-left .sec-title { color:var(--cream); }
+.c-left .sec-rule  { margin:18px 0 0; }
+.c-body { margin-top:24px;font-size:.87rem;font-weight:300;color:rgba(245,240,232,.58);line-height:1.95; }
+.c-details { margin-top:40px;display:flex;flex-direction:column;gap:16px; }
+.c-row { display:flex;gap:18px;align-items:flex-start; }
+.c-lbl { font-size:.58rem;letter-spacing:.2em;text-transform:uppercase;color:var(--gold);width:64px;flex-shrink:0;padding-top:2px; }
+.c-val { font-size:.8rem;font-weight:300;color:var(--cream);line-height:1.6; }
+.c-val a { color:var(--cream);text-decoration:none;transition:color .25s; }
+.c-val a:hover { color:var(--gold); }
+
+.c-right {
+  background:var(--cream);
+  padding:96px 72px;
+  display:flex;flex-direction:column;justify-content:center;
+}
+.c-right h3 {
+  font-family:'Cormorant Garamond',serif;font-size:1.85rem;font-weight:300;
+  color:var(--charcoal);margin-bottom:36px;
+}
+.f-grp { margin-bottom:20px; }
+.f-grp label {
+  display:block;font-size:.6rem;letter-spacing:.18em;text-transform:uppercase;
+  color:var(--mid);margin-bottom:7px;
+}
+.f-grp input,.f-grp select,.f-grp textarea {
+  width:100%;border:none;border-bottom:1px solid var(--light);
+  padding:9px 0;font-family:'Jost',sans-serif;font-size:.87rem;font-weight:300;
+  color:var(--charcoal);background:transparent;outline:none;
+  transition:border-color .28s;
+  -webkit-appearance:none;appearance:none; /* fix select arrow jank */
+}
+/* Custom select arrow */
+.f-grp select {
+  background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='10' height='6'%3E%3Cpath d='M0 0l5 6 5-6z' fill='%235A5750'/%3E%3C/svg%3E");
+  background-repeat:no-repeat;background-position:right 4px center;
+  padding-right:20px;
+}
+.f-grp input:focus,.f-grp select:focus,.f-grp textarea:focus { border-color:var(--gold); }
+.f-grp textarea { resize:none;height:76px; }
+.f-row2 { display:grid;grid-template-columns:1fr 1fr;gap:20px; }
+.f-submit {
+  width:100%;background:var(--charcoal);color:var(--cream);
+  border:none;padding:15px;font-family:'Jost',sans-serif;
+  font-size:.68rem;letter-spacing:.2em;text-transform:uppercase;
+  margin-top:8px;transition:background .3s;
+}
+.f-submit:hover { background:var(--gold); }
+
+/* ─── FOOTER ──────────────────────────────────────────── */
+footer { background:#111;padding:68px 56px 36px; }
+.footer-top {
+  display:grid;grid-template-columns:2fr 1fr 1fr 1fr;
+  gap:44px;margin-bottom:52px;
+}
+.f-brand-name {
+  font-family:'Cormorant Garamond',serif;font-size:1.6rem;
+  font-weight:300;letter-spacing:.22em;text-transform:uppercase;
+  color:var(--cream);margin-bottom:14px;
+}
+.f-brand-name span { color:var(--gold); }
+.f-tagline { font-size:.76rem;font-weight:300;color:var(--mid);line-height:1.8;max-width:220px; }
+.f-col h4 { font-size:.6rem;letter-spacing:.2em;text-transform:uppercase;color:var(--gold);margin-bottom:18px; }
+.f-col ul { list-style:none; }
+.f-col ul li { margin-bottom:9px; }
+.f-col ul a { font-size:.76rem;font-weight:300;color:#555;text-decoration:none;letter-spacing:.04em;transition:color .25s; }
+.f-col ul a:hover { color:var(--gold); }
+.f-bottom {
+  border-top:1px solid #1e1e1c;padding-top:28px;
+  display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:12px;
+}
+.f-copy { font-size:.68rem;color:#404040;font-weight:300; }
+.f-bottom-right { display:flex;align-items:center;gap:20px; }
+.f-socials { display:flex;gap:18px; }
+.f-socials a { font-size:.63rem;letter-spacing:.14em;text-transform:uppercase;color:#4a4a4a;text-decoration:none;transition:color .25s; }
+.f-socials a:hover { color:var(--gold); }
+.f-admin {
+  font-size:.63rem;letter-spacing:.14em;text-transform:uppercase;
+  color:var(--gold);text-decoration:none;
+  border:1px solid rgba(184,154,106,.4);padding:6px 13px;
+  transition:background .3s,border-color .3s;
+}
+.f-admin:hover { background:rgba(184,154,106,.12);border-color:var(--gold); }
+
+/* ─── LIGHTBOX ────────────────────────────────────────── */
+.lb {
+  display:none;position:fixed;inset:0;
+  background:rgba(6,6,5,.96);z-index:500;
+  align-items:center;justify-content:center;
+}
+.lb.open { display:flex; }
+.lb-img { max-width:82vw;max-height:80vh;object-fit:contain; }
+.lb-close {
+  position:absolute;top:26px;right:32px;
+  background:none;border:none;color:var(--light);font-size:1.35rem;
+  transition:color .25s;
+}
+.lb-close:hover { color:var(--gold); }
+.lb-nav {
+  position:absolute;top:50%;transform:translateY(-50%);
+  background:none;
+  border:1px solid rgba(245,240,232,.18);color:var(--cream);
+  font-size:1.1rem;width:48px;height:48px;
+  display:flex;align-items:center;justify-content:center;
+  transition:border-color .25s,color .25s;
+}
+.lb-nav:hover { border-color:var(--gold);color:var(--gold); }
+.lb-prev { left:32px; }
+.lb-next { right:32px; }
+.lb-cap {
+  position:absolute;bottom:32px;left:50%;transform:translateX(-50%);
+  text-align:center;white-space:nowrap;
+}
+.lb-cap-brand { color:var(--gold);font-size:.62rem;letter-spacing:.24em;text-transform:uppercase; }
+.lb-cap-name  { color:var(--cream);font-family:'Cormorant Garamond',serif;font-size:1.15rem;font-weight:300;margin-top:3px; }
+
+/* ─── ADMIN BADGE (unobtrusive) ───────────────────────── */
+.admin-badge {
+  position:fixed;bottom:24px;right:24px;z-index:300;
+  background:var(--charcoal);color:var(--gold);
+  border:1px solid rgba(184,154,106,.45);
+  font-size:.6rem;letter-spacing:.16em;text-transform:uppercase;
+  padding:9px 16px;text-decoration:none;font-family:'Jost',sans-serif;
+  transition:background .3s,border-color .3s;
+  opacity:.75;
+}
+.admin-badge:hover { background:rgba(26,26,24,.9);border-color:var(--gold);opacity:1; }
+
+/* ─── SCROLL REVEAL ───────────────────────────────────── */
+.reveal { opacity:0;transform:translateY(28px);transition:opacity .75s ease,transform .75s ease; }
+.reveal.in { opacity:1;transform:none; }
+
+/* Failed image — hide broken icon, show charcoal bg with subtle text */
+img:not([src]), img[src=""] {
+  visibility:hidden;
+}
+.img-load-failed {
+  background: linear-gradient(135deg, #1a1a18 0%, #2a2a28 100%);
+}
+.img-load-failed::after {
+  content: 'Image unavailable';
+  position:absolute; inset:0;
+  display:flex; align-items:center; justify-content:center;
+  font-size:.65rem; letter-spacing:.15em; text-transform:uppercase;
+  color:rgba(200,192,180,.3);
+}
+
+/* ─── RESPONSIVE ──────────────────────────────────────── */
+@media(max-width:1200px){
+  .gal-grid { grid-template-columns:repeat(3,1fr); }
+}
+@media(max-width:900px){
+  nav { padding:18px 24px; }
+  nav.scrolled { padding:14px 24px; }
+  .nav-links { display:none; }
+  .hero-content { padding:0 24px 72px; }
+  .hero-scroll { display:none; }
+  #intro    { grid-template-columns:1fr; }
+  .intro-img { min-height:320px; }
+  #image-strip { grid-template-columns:repeat(3,1fr);height:200px; }
+  #brands   { padding:80px 24px; }
+  .brands-grid { grid-template-columns:1fr 1fr;gap:4px; }
+  .gal-grid { grid-template-columns:repeat(2,1fr);padding:0 24px;gap:6px; }
+  #gallery { padding:80px 0 60px; }
+  .gallery-header { padding:0 24px; }
+  .gallery-tabs { padding:0 24px; }
+  .col-grid { grid-template-columns:1fr 1fr; }
+  #collections { padding:80px 24px; }
+  .proc-steps { grid-template-columns:1fr 1fr; }
+  #process { padding:80px 24px; }
+  #contact  { grid-template-columns:1fr; }
+  .c-left,.c-right { padding:72px 32px; }
+  .footer-top { grid-template-columns:1fr 1fr;gap:32px; }
+  footer { padding:56px 24px 28px; }
+  .stats-inner { grid-template-columns:1fr 1fr; }
+}
+@media(max-width:500px){
+  .brands-grid { grid-template-columns:1fr; }
+  .gal-grid { grid-template-columns:1fr 1fr; }
+  .proc-steps { grid-template-columns:1fr; }
+  .footer-top { grid-template-columns:1fr; }
+  .f-row2 { grid-template-columns:1fr; }
+}
+</style>
+</head>
+<body>
+
+<!-- Custom cursor (desktop) -->
+<div class="cur-dot"  id="curDot"></div>
+<div class="cur-ring" id="curRing"></div>
+
+<!-- Lightbox -->
+<div class="lb" id="lb">
+  <button class="lb-close" onclick="lbClose()">✕</button>
+  <button class="lb-nav lb-prev" onclick="lbNav(-1)">‹</button>
+  <img class="lb-img" id="lbImg" src="" alt="">
+  <button class="lb-nav lb-next" onclick="lbNav(1)">›</button>
+  <div class="lb-cap">
+    <div class="lb-cap-brand" id="lbBrand"></div>
+    <div class="lb-cap-name"  id="lbName"></div>
+  </div>
+</div>
+
+<!-- Admin badge -->
+<a href="planboffice-admin.html" class="admin-badge" target="_blank">⚙ Gallery Admin</a>
+
+<!-- ═══ NAV ═══════════════════════════════════════════════ -->
+<nav id="nav">
+  <a href="https://www.planboffice.com" class="nav-logo" id="navLogo" style="position:relative;display:inline-flex;align-items:center;min-width:80px;min-height:36px;">
+    <span class="logo-txt">plan b</span>
+    <img id="logoImg"
+         src="https://www.planboffice.com/themes/default/images/plan-b-logo.png"
+         alt="plan b"
+         style="position:absolute;left:0;top:50%;transform:translateY(-50%);height:32px;width:auto;"
+         onerror="this.remove()">
+  </a>
+  <ul class="nav-links">
+    <li><a href="#intro">About</a></li>
+    <li><a href="#brands">Brands</a></li>
+    <li><a href="#collections">Collections</a></li>
+    <li><a href="#gallery">Gallery</a></li>
+    <li><a href="#projects">Projects</a></li>
+    <li><a href="#contact" class="nav-cta">Visit Showroom</a></li>
+  </ul>
+</nav>
+
+<!-- ═══ HERO ═══════════════════════════════════════════════ -->
+<section id="hero">
+  <div class="hero-bg"></div>
+  <div class="hero-grad"></div>
+  <div class="hero-content">
+    <span class="eyebrow">Toronto's Premier Contract Furniture Resource — Est. 2000</span>
+    <h1 class="hero-title">Where Spaces<br>Become <em>Iconic</em></h1>
+    <p class="hero-sub">plan b curates the world's most refined contract furniture — from Wilkhahn boardrooms to Holly Hunt hotel lobbies. Trusted by Four Seasons, Rolex, Deloitte, and Porsche across North America.</p>
+    <div class="hero-btns">
+      <a href="#brands" class="btn-gold">Explore Brands</a>
+      <a href="#gallery" class="btn-outline-light">View Gallery</a>
+    </div>
+  </div>
+  <div class="hero-scroll"><span>Discover</span><div class="scroll-line"></div></div>
+</section>
+
+<!-- ═══ STATS ══════════════════════════════════════════════ -->
+<div id="stats">
+  <div class="stats-inner">
+    <div class="stat-item"><div class="stat-num">25+</div><div class="stat-label">Years of Excellence</div></div>
+    <div class="stat-item"><div class="stat-num">7</div><div class="stat-label">World-Class Brands</div></div>
+    <div class="stat-item"><div class="stat-num">500+</div><div class="stat-label">Projects Completed</div></div>
+    <div class="stat-item"><div class="stat-num">40+</div><div class="stat-label">Industry Awards</div></div>
+  </div>
+</div>
+
+<!-- ═══ INTRO ══════════════════════════════════════════════ -->
+<section id="intro">
+  <div class="intro-img">
+    <img src="https://images.unsplash.com/photo-1604328698692-f76ea9498e76?auto=format&fit=crop&w=900&q=80" alt="Luxury office interior" loading="lazy">
+  </div>
+  <div class="intro-text reveal">
+    <span class="sec-eye">Our Story</span>
+    <h2 class="sec-title">Refinement.<br><em>Curated.</em></h2>
+    <div class="sec-rule"></div>
+    <p class="intro-body">
+      plan b has earned its reputation of embodying refinement, quality, and excellence — offering exceptional furnishings to a discerning clientele. We specialize in contract projects, working exclusively with the world's most innovative design houses.<br><br>
+      Based at 380 King St E in Toronto's design district, our showroom is an immersive experience — curated vignettes showcasing each brand in its most considered form.
+    </p>
+    <div class="intro-clients">
+      <span class="clients-label">Distinguished Clients</span>
+      <div class="clients-list">
+        Four Seasons Hotels &amp; Resorts &nbsp;·&nbsp; Deloitte &nbsp;·&nbsp; Rolex<br>
+        Toronto Pearson Airport &nbsp;·&nbsp; Tory's LLP &nbsp;·&nbsp; GFL Environmental<br>
+        Audi &nbsp;·&nbsp; Porsche &nbsp;·&nbsp; Jaguar Land Rover Canada
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══ IMAGE STRIP ════════════════════════════════════════ -->
+<div id="image-strip">
+  <div class="strip-cell"><img src="https://images.unsplash.com/photo-1541123437800-1bb1317badc2?auto=format&fit=crop&w=500&q=80" alt="Executive Seating" loading="lazy"><div class="strip-label">Executive Seating</div></div>
+  <div class="strip-cell"><img src="https://images.unsplash.com/photo-1497366754035-f200968a6e72?auto=format&fit=crop&w=500&q=80" alt="Conference Rooms"  loading="lazy"><div class="strip-label">Conference Rooms</div></div>
+  <div class="strip-cell"><img src="https://images.unsplash.com/photo-1497366216548-37526070297c?auto=format&fit=crop&w=500&q=80" alt="Open Workspace"   loading="lazy"><div class="strip-label">Open Workspace</div></div>
+  <div class="strip-cell"><img src="https://images.unsplash.com/photo-1555041469-a586c61ea9bc?auto=format&fit=crop&w=500&q=80" alt="Lounge Areas"     loading="lazy"><div class="strip-label">Lounge Areas</div></div>
+  <div class="strip-cell"><img src="https://images.unsplash.com/photo-1586023492125-27b2c045efd7?auto=format&fit=crop&w=500&q=80" alt="Reception Design" loading="lazy"><div class="strip-label">Reception Design</div></div>
+</div>
+
+<!-- ═══ BRANDS ═════════════════════════════════════════════ -->
+<section id="brands">
+  <div class="sec-header reveal">
+    <span class="sec-eye">Our Portfolio</span>
+    <h2 class="sec-title">World-Class <em>Design Houses</em></h2>
+    <div class="sec-rule"></div>
+  </div>
+  <div class="brands-grid">
+
+    <div class="brand-card">
+      <img src="https://images.unsplash.com/photo-1497366754035-f200968a6e72?auto=format&fit=crop&w=800&q=80" alt="Wilkhahn" loading="lazy">
+      <div class="brand-inner">
+        <div class="brand-origin">Germany · Est. 1907</div>
+        <div class="brand-name">Wilkhahn</div>
+        <div class="brand-tagline">Pioneering movement in seating design for over a century</div>
+      </div>
+      <a class="brand-ext" href="https://www.wilkhahn.com" target="_blank" rel="noopener">↗</a>
+    </div>
+
+    <div class="brand-card">
+      <img src="https://images.unsplash.com/photo-1555041469-a586c61ea9bc?auto=format&fit=crop&w=800&q=80" alt="Walter Knoll" loading="lazy">
+      <div class="brand-inner">
+        <div class="brand-origin">Germany · Est. 1865</div>
+        <div class="brand-name">Walter Knoll</div>
+        <div class="brand-tagline">160 years of premier leather craftsmanship</div>
+      </div>
+      <a class="brand-ext" href="https://www.walterknoll.de/en/" target="_blank" rel="noopener">↗</a>
+    </div>
+
+    <div class="brand-card">
+      <img src="https://images.unsplash.com/photo-1598300042247-d088f8ab3a91?auto=format&fit=crop&w=800&q=80" alt="Vitra" loading="lazy">
+      <div class="brand-inner">
+        <div class="brand-origin">Switzerland · Est. 1950</div>
+        <div class="brand-name">Vitra</div>
+        <div class="brand-tagline">Icons of 20th-century design, reborn for today</div>
+      </div>
+      <a class="brand-ext" href="https://www.vitra.com/en-ca" target="_blank" rel="noopener">↗</a>
+    </div>
+
+    <div class="brand-card">
+      <img src="https://images.unsplash.com/photo-1586023492125-27b2c045efd7?auto=format&fit=crop&w=800&q=80" alt="Holly Hunt" loading="lazy">
+      <div class="brand-inner">
+        <div class="brand-origin">USA · Contract Division</div>
+        <div class="brand-name">Holly Hunt</div>
+        <div class="brand-tagline">Refined luxury for hospitality &amp; corporate contract</div>
+      </div>
+      <a class="brand-ext" href="https://www.hollyhunt.com/contract" target="_blank" rel="noopener">↗</a>
+    </div>
+
+    <div class="brand-card">
+      <img src="https://images.unsplash.com/photo-1524758631624-e2822e304c36?auto=format&fit=crop&w=800&q=80" alt="Keilhauer" loading="lazy">
+      <div class="brand-inner">
+        <div class="brand-origin">Canada · Toronto-Made</div>
+        <div class="brand-name">Keilhauer</div>
+        <div class="brand-tagline">Award-winning Canadian seating, made in Toronto</div>
+      </div>
+      <a class="brand-ext" href="https://www.keilhauer.com" target="_blank" rel="noopener">↗</a>
+    </div>
+
+    <div class="brand-card">
+      <img src="https://images.unsplash.com/photo-1497366216548-37526070297c?auto=format&fit=crop&w=800&q=80" alt="Lapalma" loading="lazy">
+      <div class="brand-inner">
+        <div class="brand-origin">Italy · Est. 1977</div>
+        <div class="brand-name">Lapalma</div>
+        <div class="brand-tagline">Italian minimalism meets rigorous functional precision</div>
+      </div>
+      <a class="brand-ext" href="https://www.lapalma.it/en/" target="_blank" rel="noopener">↗</a>
+    </div>
+
+    <div class="brand-card">
+      <img src="https://images.unsplash.com/photo-1507652313519-d4e9174996dd?auto=format&fit=crop&w=800&q=80" alt="Gallotti &amp; Radice" loading="lazy">
+      <div class="brand-inner">
+        <div class="brand-origin">Italy · Est. 1956</div>
+        <div class="brand-name">Gallotti &amp; Radice</div>
+        <div class="brand-tagline">Masterful glass &amp; metal artisanship from Milan</div>
+      </div>
+      <a class="brand-ext" href="https://www.gallottiradice.it/en/" target="_blank" rel="noopener">↗</a>
+    </div>
+
+    <div class="brand-card">
+      <img src="https://images.unsplash.com/photo-1604328698692-f76ea9498e76?auto=format&fit=crop&w=800&q=80" alt="De Sede" loading="lazy">
+      <div class="brand-inner">
+        <div class="brand-origin">Switzerland · Est. 1965</div>
+        <div class="brand-name">De Sede</div>
+        <div class="brand-tagline">Handcrafted Swiss leather furniture of extraordinary quality</div>
+      </div>
+      <a class="brand-ext" href="https://www.de-sede.com/en/" target="_blank" rel="noopener">↗</a>
+    </div>
+
+    <div class="brand-card">
+      <img src="https://images.unsplash.com/photo-1618221195710-dd6b41faaea6?auto=format&fit=crop&w=800&q=80" alt="Paola Lenti" loading="lazy">
+      <div class="brand-inner">
+        <div class="brand-origin">Italy · Est. 1994</div>
+        <div class="brand-name">Paola Lenti</div>
+        <div class="brand-tagline">Bold colour, tactile materials, indoor &amp; outdoor living</div>
+      </div>
+      <a class="brand-ext" href="https://www.paolalenti.it/en/" target="_blank" rel="noopener">↗</a>
+    </div>
+
+  </div>
+</section>
+
+<!-- ═══ GALLERY ════════════════════════════════════════════ -->
+<section id="gallery">
+  <div class="gallery-header reveal">
+    <div class="sec-header" style="margin-bottom:0">
+      <span class="sec-eye">Inspiration Gallery</span>
+      <h2 class="sec-title">Spaces We've <em>Brought to Life</em></h2>
+      <div class="sec-rule"></div>
+    </div>
+  </div>
+
+  <div class="gallery-tabs" id="galTabs">
+    <button class="gtab on"  onclick="galFilter('all',this)">All</button>
+    <button class="gtab"     onclick="galFilter('seating',this)">Seating</button>
+    <button class="gtab"     onclick="galFilter('tables',this)">Tables &amp; Desks</button>
+    <button class="gtab"     onclick="galFilter('lounge',this)">Lounge</button>
+    <button class="gtab"     onclick="galFilter('lighting',this)">Lighting</button>
+    <button class="gtab"     onclick="galFilter('spaces',this)">Spaces</button>
+    <button class="gtab"     onclick="galFilter('uploaded',this)">⊕ My Uploads</button>
+  </div>
+
+  <div class="gal-grid" id="galGrid">
+    <!-- Gallery is populated entirely by the admin panel via localStorage.
+         Open planboffice-admin.html to manage all images. -->
+    <div id="galPlaceholder" style="grid-column:1/-1;padding:60px 0;text-align:center;color:var(--light);font-size:.75rem;letter-spacing:.18em;text-transform:uppercase;">
+      Loading gallery...
+    </div>
+  </div>
+
+  <div class="gal-more">
+    <button class="btn-outline-dark" id="loadMoreBtn" onclick="loadMore()">Load More Images</button>
+  </div>
+</section>
+
+<!-- ═══ FEATURED ROOM ══════════════════════════════════════ -->
+<section id="featured">
+  <div class="f-layer on" id="fl0" style="background-image:url('https://images.unsplash.com/photo-1497366216548-37526070297c?auto=format&fit=crop&w=1800&q=80')"></div>
+  <div class="f-layer"    id="fl1" style="background-image:url('https://images.unsplash.com/photo-1524758631624-e2822e304c36?auto=format&fit=crop&w=1800&q=80')"></div>
+  <div class="f-layer"    id="fl2" style="background-image:url('https://images.unsplash.com/photo-1604328698692-f76ea9498e76?auto=format&fit=crop&w=1800&q=80')"></div>
+  <div class="f-layer"    id="fl3" style="background-image:url('https://images.unsplash.com/photo-1618221195710-dd6b41faaea6?auto=format&fit=crop&w=1800&q=80')"></div>
+  <div class="f-grad"></div>
+  <div class="f-content">
+    <span class="sec-eye">Space in Focus</span>
+    <h2 id="fTitle">The Modern Open Office</h2>
+    <p  id="fDesc">Expansive, collaborative, and beautifully detailed — a Wilkhahn environment that energizes teams while projecting quiet authority.</p>
+    <a href="#gallery" class="btn-gold">View in Gallery</a>
+  </div>
+  <div class="f-dots" id="fDots"></div>
+</section>
+
+<!-- ═══ COLLECTIONS ════════════════════════════════════════ -->
+<section id="collections">
+  <div class="sec-header reveal">
+    <span class="sec-eye">Browse By Category</span>
+    <h2 class="sec-title" style="color:var(--cream)">Our <em>Collections</em></h2>
+    <div class="sec-rule"></div>
+  </div>
+  <div class="col-grid">
+
+    <div class="col-card">
+      <img src="https://images.unsplash.com/photo-1541123437800-1bb1317badc2?auto=format&fit=crop&w=600&q=80" alt="Task Seating" loading="lazy">
+      <div class="col-overlay"><div class="col-cat">Category</div><div class="col-name">Task Seating</div><div class="col-count">24 products</div></div>
+    </div>
+
+    <div class="col-card">
+      <img src="https://images.unsplash.com/photo-1555041469-a586c61ea9bc?auto=format&fit=crop&w=600&q=80" alt="Lounge" loading="lazy">
+      <div class="col-overlay"><div class="col-cat">Category</div><div class="col-name">Lounge</div><div class="col-count">18 products</div></div>
+    </div>
+
+    <div class="col-card">
+      <img src="https://images.unsplash.com/photo-1497366754035-f200968a6e72?auto=format&fit=crop&w=600&q=80" alt="Conference" loading="lazy">
+      <div class="col-overlay"><div class="col-cat">Category</div><div class="col-name">Conference</div><div class="col-count">12 products</div></div>
+    </div>
+
+    <div class="col-card">
+      <img src="https://images.unsplash.com/photo-1497366216548-37526070297c?auto=format&fit=crop&w=600&q=80" alt="Open Plan" loading="lazy">
+      <div class="col-overlay"><div class="col-cat">Category</div><div class="col-name">Open Plan</div><div class="col-count">32 products</div></div>
+    </div>
+
+    <div class="col-card">
+      <img src="https://images.unsplash.com/photo-1507652313519-d4e9174996dd?auto=format&fit=crop&w=600&q=80" alt="Lighting" loading="lazy">
+      <div class="col-overlay"><div class="col-cat">Category</div><div class="col-name">Lighting</div><div class="col-count">31 products</div></div>
+    </div>
+
+    <div class="col-card">
+      <img src="https://images.unsplash.com/photo-1604328698692-f76ea9498e76?auto=format&fit=crop&w=600&q=80" alt="Executive" loading="lazy">
+      <div class="col-overlay"><div class="col-cat">Category</div><div class="col-name">Executive</div><div class="col-count">9 products</div></div>
+    </div>
+
+    <div class="col-card">
+      <img src="https://images.unsplash.com/photo-1524758631624-e2822e304c36?auto=format&fit=crop&w=600&q=80" alt="Hospitality" loading="lazy">
+      <div class="col-overlay"><div class="col-cat">Category</div><div class="col-name">Hospitality</div><div class="col-count">22 products</div></div>
+    </div>
+
+    <div class="col-card">
+      <img src="https://images.unsplash.com/photo-1593642632559-0c6d3fc62b89?auto=format&fit=crop&w=600&q=80" alt="Desks" loading="lazy">
+      <div class="col-overlay"><div class="col-cat">Category</div><div class="col-name">Desks</div><div class="col-count">15 products</div></div>
+    </div>
+
+  </div>
+</section>
+
+<!-- ═══ PROJECTS ═══════════════════════════════════════════ -->
+<section id="projects">
+  <div class="sec-header reveal">
+    <span class="sec-eye">Award-Winning Work</span>
+    <h2 class="sec-title">Featured <em>Projects</em></h2>
+    <div class="sec-rule"></div>
+  </div>
+  <div class="proj-slider">
+    <div class="proj-card"><img src="https://images.unsplash.com/photo-1497366216548-37526070297c?auto=format&fit=crop&w=700&q=80" alt="" loading="lazy"><div class="proj-info"><div class="proj-client">Client</div><div class="proj-name">Deloitte Canada HQ</div><div class="proj-loc">Bay Street, Toronto · Wilkhahn + Lapalma</div></div></div>
+    <div class="proj-card"><img src="https://images.unsplash.com/photo-1524758631624-e2822e304c36?auto=format&fit=crop&w=700&q=80" alt="" loading="lazy"><div class="proj-info"><div class="proj-client">Client</div><div class="proj-name">Four Seasons Hotels</div><div class="proj-loc">Toronto &amp; Montréal · Holly Hunt + Walter Knoll</div></div></div>
+    <div class="proj-card"><img src="https://images.unsplash.com/photo-1519389950473-47ba0277781c?auto=format&fit=crop&w=700&q=80" alt="" loading="lazy"><div class="proj-info"><div class="proj-client">Client</div><div class="proj-name">Porsche Centres Canada</div><div class="proj-loc">Nationwide · Vitra + Keilhauer</div></div></div>
+    <div class="proj-card"><img src="https://images.unsplash.com/photo-1541123437800-1bb1317badc2?auto=format&fit=crop&w=700&q=80" alt="" loading="lazy"><div class="proj-info"><div class="proj-client">Client</div><div class="proj-name">Rolex Boutique</div><div class="proj-loc">Bloor Street, Toronto · Gallotti &amp; Radice</div></div></div>
+    <div class="proj-card"><img src="https://images.unsplash.com/photo-1462826303086-329426d1aef5?auto=format&fit=crop&w=700&q=80" alt="" loading="lazy"><div class="proj-info"><div class="proj-client">Client</div><div class="proj-name">Toronto Pearson Airport</div><div class="proj-loc">Terminal 1 Lounge · Keilhauer + Lapalma</div></div></div>
+    <div class="proj-card"><img src="https://images.unsplash.com/photo-1604328698692-f76ea9498e76?auto=format&fit=crop&w=700&q=80" alt="" loading="lazy"><div class="proj-info"><div class="proj-client">Client</div><div class="proj-name">Tory's LLP</div><div class="proj-loc">Bay Street, Toronto · Walter Knoll + Wilkhahn</div></div></div>
+  </div>
+</section>
+
+<!-- ═══ PROCESS ════════════════════════════════════════════ -->
+<section id="process">
+  <div class="sec-header reveal">
+    <span class="sec-eye">How We Work</span>
+    <h2 class="sec-title">The plan b <em>Process</em></h2>
+    <div class="sec-rule"></div>
+  </div>
+  <div class="proc-steps">
+    <div class="proc-step"><div class="proc-num">01</div><div class="proc-title">Consultation</div><div class="proc-desc">We begin with a deep listening session — understanding your vision, culture, and the way your people work.</div></div>
+    <div class="proc-step"><div class="proc-num">02</div><div class="proc-title">Space Planning</div><div class="proc-desc">Our designers develop detailed plans and 3D visualizations, curating the perfect furniture program.</div></div>
+    <div class="proc-step"><div class="proc-num">03</div><div class="proc-title">Specification</div><div class="proc-desc">Every detail is specified — finishes, fabrics, configurations — with full transparency on lead times.</div></div>
+    <div class="proc-step"><div class="proc-num">04</div><div class="proc-title">Installation</div><div class="proc-desc">White-glove delivery and installation ensures every piece is placed and adjusted to perfection.</div></div>
+  </div>
+</section>
+
+<!-- ═══ CONTACT ════════════════════════════════════════════ -->
+<section id="contact">
+  <div class="c-left">
+    <span class="sec-eye">Visit Us</span>
+    <h2 class="sec-title">Our Toronto<br><em>Showroom</em></h2>
+    <div class="sec-rule"></div>
+    <p class="c-body">Open by appointment, our showroom offers a curated, immersive experience with full vignettes from all represented brands. We work exclusively with the design community and contract clients.</p>
+    <div class="c-details">
+      <div class="c-row"><span class="c-lbl">Address</span><span class="c-val">380 King Street East<br>Toronto, ON M5A 1K9</span></div>
+      <div class="c-row"><span class="c-lbl">Phone</span><span class="c-val"><a href="tel:+14169411010">416.941.1010</a><br><a href="tel:+18666575262" style="font-size:.75rem;color:rgba(245,240,232,.5);">Toll Free: 1.866.657.5262</a></span></div>
+      <div class="c-row"><span class="c-lbl">Email</span><span class="c-val"><a href="/cdn-cgi/l/email-protection#97fef9f1f8d7e7fbf6f9f5f8f1f1fef4f2b9f4f8fa"><span class="__cf_email__" data-cfemail="85ecebe3eac5f5e9e4ebe7eae3e3ece6e0abe6eae8">[email&#160;protected]</span></a></span></div>
+      <div class="c-row"><span class="c-lbl">Hours</span><span class="c-val">By Appointment Only<br>Monday – Friday</span></div>
+      <div class="c-row"><span class="c-lbl">Web</span><span class="c-val"><a href="https://www.planboffice.com" target="_blank" rel="noopener">www.planboffice.com</a></span></div>
+      <div class="c-row"><span class="c-lbl">Instagram</span><span class="c-val"><a href="https://www.instagram.com/planboffice" target="_blank" rel="noopener">@planboffice</a></span></div>
+    </div>
+  </div>
+  <div class="c-right">
+    <h3>Request a Consultation</h3>
+    <div class="f-row2">
+      <div class="f-grp"><label>First Name</label><input type="text" placeholder="Jane"></div>
+      <div class="f-grp"><label>Last Name</label><input type="text" placeholder="Smith"></div>
+    </div>
+    <div class="f-grp"><label>Company / Firm</label><input type="text" placeholder="Smith &amp; Associates Design"></div>
+    <div class="f-grp"><label>Email</label><input type="email" placeholder="jane@firm.com"></div>
+    <div class="f-grp">
+      <label>Project Type</label>
+      <select>
+        <option value="">Select...</option>
+        <option>Corporate Office</option>
+        <option>Hospitality / Hotel</option>
+        <option>Automotive Showroom</option>
+        <option>Legal / Professional</option>
+        <option>Residential</option>
+        <option>Other</option>
+      </select>
+    </div>
+    <div class="f-grp"><label>Project Brief</label><textarea placeholder="Tell us about your project..."></textarea></div>
+    <button class="f-submit" id="formBtn" onclick="submitForm()">Send Request →</button>
+  </div>
+</section>
+
+<!-- ═══ FOOTER ═════════════════════════════════════════════ -->
+<footer>
+  <div class="footer-top">
+    <div>
+      <div class="f-brand-name">
+        <img src="https://www.planboffice.com/themes/default/images/plan-b-logo.png"
+             alt="plan b office"
+             style="height:40px;width:auto;filter:brightness(0) invert(.7) sepia(1) hue-rotate(5deg) saturate(.6);margin-bottom:14px;display:block;"
+             onerror="this.outerHTML='<div style=\'font-family:Cormorant Garamond,serif;font-weight:300;font-size:1.6rem;letter-spacing:.22em;color:var(--cream);margin-bottom:14px;\'>plan <span style=\'color:var(--gold)\'>b</span></div>'">
+      </div>
+      <div class="f-tagline">Toronto's leading design resource for sophisticated, professional interiors. A division of The Beaton Group of Companies.</div>
+    </div>
+    <div class="f-col"><h4>Brands</h4><ul>
+      <li><a href="#">Wilkhahn</a></li><li><a href="#">Walter Knoll</a></li>
+      <li><a href="#">Vitra</a></li><li><a href="#">Holly Hunt</a></li>
+      <li><a href="#">Gallotti &amp; Radice</a></li><li><a href="#">Keilhauer</a></li>
+      <li><a href="#">Lapalma</a></li>
+    </ul></div>
+    <div class="f-col"><h4>Collections</h4><ul>
+      <li><a href="#">Task Seating</a></li><li><a href="#">Lounge</a></li>
+      <li><a href="#">Conference</a></li><li><a href="#">Executive</a></li>
+      <li><a href="#">Lighting</a></li><li><a href="#">Hospitality</a></li>
+    </ul></div>
+    <div class="f-col"><h4>Studio</h4><ul>
+      <li><a href="#">About plan b</a></li><li><a href="#">Projects</a></li>
+      <li><a href="#">For the Trade</a></li><li><a href="#">Gallery</a></li>
+      <li><a href="#">Contact</a></li>
+      <li><a href="planboffice-admin.html" target="_blank">Gallery Admin ↗</a></li>
+    </ul></div>
+  </div>
+  <div class="f-bottom">
+    <div class="f-copy">© 2025 Plan B Office Inc. — 380 King St E, Toronto, ON M5A 1K9</div>
+    <div class="f-bottom-right">
+      <div class="f-socials">
+        <a href="https://www.instagram.com/planboffice" target="_blank" rel="noopener">Instagram</a>
+        <a href="https://ca.linkedin.com/company/plan-b-office" target="_blank" rel="noopener">LinkedIn</a>
+      </div>
+      <a href="planboffice-admin.html" target="_blank" class="f-admin">⚙ Admin</a>
+    </div>
+  </div>
+</footer>
+
+<script>
+'use strict';
+
+/* ══════════════════════════════════════════════════════
+   CURSOR — gold dot + trailing ring, desktop only
+══════════════════════════════════════════════════════ */
+(function(){
+  if(!matchMedia('(hover:hover)').matches) return;
+  const dot  = document.getElementById('curDot');
+  const ring = document.getElementById('curRing');
+  // Start off-screen so they don't flash in the corner
+  dot.style.opacity  = '0';
+  ring.style.opacity = '0';
+  let mx=window.innerWidth/2, my=window.innerHeight/2;
+  let rx=mx, ry=my, first=true;
+  document.addEventListener('mousemove', e=>{
+    mx=e.clientX; my=e.clientY;
+    dot.style.left=mx+'px'; dot.style.top=my+'px';
+    if(first){ first=false; dot.style.opacity='1'; ring.style.opacity='1'; }
+  }, {passive:true});
+  (function tick(){
+    rx += (mx-rx)*.14;
+    ry += (my-ry)*.14;
+    ring.style.left=rx+'px'; ring.style.top=ry+'px';
+    requestAnimationFrame(tick);
+  })();
+})();
+
+/* ══════════════════════════════════════════════════════
+   NAV — scroll class + logo filter swap
+══════════════════════════════════════════════════════ */
+const _nav    = document.getElementById('nav');
+const _logoImg= document.getElementById('logoImg');
+function _updateNav(){
+  const scrolled = scrollY > 60;
+  _nav.classList.toggle('scrolled', scrolled);
+  if(_logoImg){
+    _logoImg.style.filter = scrolled ? 'none' : 'brightness(0) invert(1)';
+  }
+}
+window.addEventListener('scroll', _updateNav, {passive:true});
+_updateNav();
+
+/* ══════════════════════════════════════════════════════
+   SCROLL REVEAL
+══════════════════════════════════════════════════════ */
+new IntersectionObserver(
+  entries => entries.forEach(e=>{ if(e.isIntersecting) e.target.classList.add('in'); }),
+  {threshold:0.1}
+).observe.bind(new IntersectionObserver(
+  entries => entries.forEach(e=>{ if(e.isIntersecting) e.target.classList.add('in'); }),
+  {threshold:0.1}
+));
+// Simpler:
+const _ro = new IntersectionObserver(
+  entries => entries.forEach(e=>{ if(e.isIntersecting) e.target.classList.add('in'); }),
+  {threshold:0.1}
+);
+document.querySelectorAll('.reveal').forEach(el=>_ro.observe(el));
+
+/* ══════════════════════════════════════════════════════
+   IMAGE FIT ENGINE
+   Classifies each image by aspect ratio after load:
+   portrait  (<0.9) → contain + blurred bg backdrop
+   square  (0.9-1.15) → cover, top-biased crop
+   landscape (>1.15) → cover centered (default)
+══════════════════════════════════════════════════════ */
+function fitImage(img){
+  if(!img.naturalWidth || !img.naturalHeight) return;
+  const ratio = img.naturalWidth / img.naturalHeight;
+  const item  = img.closest('.gal-item');
+  if(!item) return;
+  item.classList.remove('img-portrait','img-square');
+  if(ratio < 0.9){
+    item.classList.add('img-portrait');
+    let blurDiv = item.querySelector('.img-blur-bg');
+    if(!blurDiv){
+      blurDiv = document.createElement('div');
+      blurDiv.className = 'img-blur-bg';
+      item.insertBefore(blurDiv, item.firstChild);
+    }
+    blurDiv.style.backgroundImage = `url('${img.src}')`;
+  } else if(ratio < 1.15){
+    item.classList.add('img-square');
+  }
+}
+
+/* ══════════════════════════════════════════════════════
+   IMAGE ERROR FALLBACK
+══════════════════════════════════════════════════════ */
+const FALLBACK_POOL = [
+  'https://images.unsplash.com/photo-1497366216548-37526070297c?auto=format&fit=crop&w=700&q=80',
+  'https://images.unsplash.com/photo-1497366754035-f200968a6e72?auto=format&fit=crop&w=700&q=80',
+  'https://images.unsplash.com/photo-1524758631624-e2822e304c36?auto=format&fit=crop&w=700&q=80',
+  'https://images.unsplash.com/photo-1604328698692-f76ea9498e76?auto=format&fit=crop&w=700&q=80',
+  'https://images.unsplash.com/photo-1618221195710-dd6b41faaea6?auto=format&fit=crop&w=700&q=80',
+  'https://images.unsplash.com/photo-1541123437800-1bb1317badc2?auto=format&fit=crop&w=700&q=80',
+];
+let _fbIdx = 0;
+function handleImgError(img){
+  if(img.dataset.fallbackUsed){ return; }
+  img.dataset.fallbackUsed = '1';
+  const fb = FALLBACK_POOL[_fbIdx++ % FALLBACK_POOL.length];
+  if(img.src !== fb) img.src = fb;
+}
+// Attach to all existing images
+document.querySelectorAll('img').forEach(img=>{
+  img.addEventListener('error', ()=>handleImgError(img));
+  if(img.complete && img.naturalWidth === 0 && img.src) handleImgError(img);
+});
+
+/* ══════════════════════════════════════════════════════
+   GALLERY FILTER
+══════════════════════════════════════════════════════ */
+function galFilter(cat, btn){
+  document.querySelectorAll('.gtab').forEach(t=>t.classList.remove('on'));
+  btn.classList.add('on');
+  document.querySelectorAll('.gal-item').forEach(item=>{
+    const show = cat==='all'      ? true
+               : cat==='uploaded' ? !!item.dataset.uploaded
+               :                    item.dataset.cat===cat;
+    item.classList.toggle('hide', !show);
+  });
+}
+
+/* Gallery click → lightbox */
+document.getElementById('galGrid').addEventListener('click', e=>{
+  const item = e.target.closest('.gal-item');
+  if(item && !e.target.classList.contains('gal-expand')) lbOpen(item);
+});
+
+/* ══════════════════════════════════════════════════════
+   LIGHTBOX
+══════════════════════════════════════════════════════ */
+let lbItems=[], lbIdx=0;
+function lbOpen(el){
+  lbItems = [...document.querySelectorAll('.gal-item:not(.hide)')];
+  lbIdx   = lbItems.indexOf(el);
+  _lbShow(lbIdx);
+  document.getElementById('lb').classList.add('open');
+  document.body.style.overflow='hidden';
+}
+function _lbShow(i){
+  const img = lbItems[i]?.querySelector('img');
+  if(!img) return;
+  document.getElementById('lbImg').src   = img.src.replace(/w=\d+/,'w=1400');
+  document.getElementById('lbBrand').textContent = img.dataset.brand||'';
+  document.getElementById('lbName').textContent  = img.dataset.name||'';
+}
+function lbNav(d){ lbIdx=(lbIdx+d+lbItems.length)%lbItems.length; _lbShow(lbIdx); }
+function lbClose(){
+  document.getElementById('lb').classList.remove('open');
+  document.body.style.overflow='';
+}
+document.getElementById('lb').addEventListener('click', function(e){ if(e.target===this) lbClose(); });
+document.addEventListener('keydown', e=>{
+  if(!document.getElementById('lb').classList.contains('open')) return;
+  if(e.key==='Escape')    lbClose();
+  if(e.key==='ArrowLeft') lbNav(-1);
+  if(e.key==='ArrowRight')lbNav(1);
+});
+
+/* ══════════════════════════════════════════════════════
+   FEATURED ROOM ROTATOR
+══════════════════════════════════════════════════════ */
+const fRooms = [
+  {title:'The Modern Open Office',   desc:'Expansive, collaborative, and beautifully detailed — a Wilkhahn environment that energizes teams while projecting quiet authority.'},
+  {title:'The Executive Suite',      desc:'Reserved for those who require both gravitas and comfort. Keilhauer seating and Lapalma accent pieces throughout.'},
+  {title:'The Boardroom',            desc:'Every decision made at this table carries weight. Walter Knoll seating surrounds a Lapalma conference table of rare precision.'},
+  {title:'The Collaborative Lounge', desc:'Where informal meetings become productive conversations — Holly Hunt contract furnishings set the tone for inspired dialogue.'},
+];
+let fCur=0, fTimer=null;
+const fDotsEl = document.getElementById('fDots');
+fRooms.forEach((_,i)=>{
+  const b = document.createElement('button');
+  b.className = 'f-dot' + (i===0?' on':'');
+  b.setAttribute('aria-label','Room '+(i+1));
+  b.onclick = ()=>_fSwitch(i, true);
+  fDotsEl.appendChild(b);
+});
+function _fSwitch(i, manual=false){
+  document.getElementById('fl'+fCur).classList.remove('on');
+  fCur = i;
+  document.getElementById('fl'+fCur).classList.add('on');
+  document.getElementById('fTitle').textContent = fRooms[i].title;
+  document.getElementById('fDesc').textContent  = fRooms[i].desc;
+  document.querySelectorAll('.f-dot').forEach((d,j)=>d.classList.toggle('on',j===i));
+  if(manual){ clearInterval(fTimer); fTimer=setInterval(()=>_fSwitch((fCur+1)%4),5000); }
+}
+_fSwitch(0);
+fTimer = setInterval(()=>_fSwitch((fCur+1)%4), 5000);
+
+/* ══════════════════════════════════════════════════════
+   ADD GALLERY ITEM (single canonical function)
+══════════════════════════════════════════════════════ */
+function addGalItem(src, cap, brand, cat, uploaded, adminId){
+  const grid = document.getElementById('galGrid');
+  const div  = document.createElement('div');
+  div.className    = 'gal-item';
+  div.dataset.cat  = cat || 'spaces';
+  if(uploaded) div.dataset.uploaded = '1';
+  if(adminId)  div.dataset.admin    = adminId;
+
+  const img = document.createElement('img');
+  img.dataset.brand = brand || '';
+  img.dataset.name  = cap   || '';
+  img.alt     = '';
+  img.loading = 'lazy';
+  img.addEventListener('load',  ()=>fitImage(img));
+  img.addEventListener('error', ()=>handleImgError(img));
+  img.src = src;
+
+  const overlay = document.createElement('div');
+  overlay.className = 'gal-overlay';
+  overlay.innerHTML = `<div class="gal-brand">${brand||''}</div><div class="gal-cap">${cap||''}</div>`;
+
+  const btn = document.createElement('button');
+  btn.className   = 'gal-expand';
+  btn.textContent = '⤢';
+  btn.onclick = ev=>{ ev.stopPropagation(); lbOpen(div); };
+
+  div.append(img, overlay, btn);
+  grid.appendChild(div);
+}
+
+/* ══════════════════════════════════════════════════════
+   LOAD MORE
+══════════════════════════════════════════════════════ */
+let moreLoaded = false;
+function loadMore(){
+  if(moreLoaded){
+    document.getElementById('loadMoreBtn').textContent = 'All images loaded';
+    return;
+  }
+  moreLoaded = true;
+  [
+    {src:'https://images.unsplash.com/photo-1521737711867-e3b97375f902?auto=format&fit=crop&w=700&q=80',cap:'Team Meeting Space',      brand:'plan b',           cat:'spaces'},
+    {src:'https://images.unsplash.com/photo-1497366811353-6870744d04b2?auto=format&fit=crop&w=700&q=80',cap:'Private Office',          brand:'plan b',           cat:'spaces'},
+    {src:'https://images.unsplash.com/photo-1586023492125-27b2c045efd7?auto=format&fit=crop&w=700&q=80',cap:'Contract Lounge Seating', brand:'Holly Hunt',       cat:'lounge'},
+    {src:'https://images.unsplash.com/photo-1513506003901-1e6a35791f5a?auto=format&fit=crop&w=700&q=80',cap:'Pendant Lighting',        brand:'Gallotti & Radice',cat:'lighting'},
+    {src:'https://images.unsplash.com/photo-1611048267451-e6ed903d4a38?auto=format&fit=crop&w=700&q=80',cap:'Bench Workspace System',  brand:'Wilkhahn',         cat:'tables'},
+    {src:'https://images.unsplash.com/photo-1593642632559-0c6d3fc62b89?auto=format&fit=crop&w=700&q=80',cap:'Height-Adjustable Desk',  brand:'Wilkhahn',         cat:'tables'},
+  ].forEach(e=>addGalItem(e.src,e.cap,e.brand,e.cat,false,null));
+
+  // Re-apply current filter
+  const activeTab = document.querySelector('.gtab.on');
+  if(activeTab) activeTab.click();
+  document.getElementById('loadMoreBtn').textContent = 'All images loaded';
+}
+
+/* Scan existing hardcoded images for fitImage */
+function _scanGalImages(){
+  document.querySelectorAll('.gal-item img').forEach(img=>{
+    if(img.complete && img.naturalWidth) fitImage(img);
+    else img.addEventListener('load',()=>fitImage(img),{once:true});
+  });
+}
+document.readyState==='loading'
+  ? document.addEventListener('DOMContentLoaded',_scanGalImages)
+  : _scanGalImages();
+setTimeout(_scanGalImages, 800);
+
+/* ══════════════════════════════════════════════════════
+   ADMIN SYNC — The gallery is 100% driven by admin.
+   Every sync wipes the grid and rebuilds from scratch.
+   Falls back to built-in seed data when no admin data.
+══════════════════════════════════════════════════════ */
+const ADMIN_KEY = 'planb_gallery';
+
+// Fallback seed — shown when admin hasn't published yet
+const SEED_GALLERY = [
+  {src:'https://images.unsplash.com/photo-1541123437800-1bb1317badc2?auto=format&fit=crop&w=700&q=80',caption:'ON Conference Chair',      brand:'Wilkhahn',         cat:'seating'},
+  {src:'https://images.unsplash.com/photo-1505409859467-3a796fd5798e?auto=format&fit=crop&w=700&q=80',caption:'Graph Cantilever Chair',  brand:'Wilkhahn',         cat:'seating'},
+  {src:'https://images.unsplash.com/photo-1631679706909-1844bbd07221?auto=format&fit=crop&w=700&q=80',caption:'Swoop Task Chair',        brand:'Keilhauer',        cat:'seating'},
+  {src:'https://images.unsplash.com/photo-1598300042247-d088f8ab3a91?auto=format&fit=crop&w=700&q=80',caption:'Eames Lounge Chair',      brand:'Vitra',            cat:'seating'},
+  {src:'https://images.unsplash.com/photo-1497366754035-f200968a6e72?auto=format&fit=crop&w=700&q=80',caption:'Path Conference Table',   brand:'Lapalma',          cat:'tables'},
+  {src:'https://images.unsplash.com/photo-1593642632559-0c6d3fc62b89?auto=format&fit=crop&w=700&q=80',caption:'Executive Desk System',   brand:'Wilkhahn',         cat:'tables'},
+  {src:'https://images.unsplash.com/photo-1611048267451-e6ed903d4a38?auto=format&fit=crop&w=700&q=80',caption:'Alto Bar Stool',          brand:'Lapalma',          cat:'tables'},
+  {src:'https://images.unsplash.com/photo-1497366216548-37526070297c?auto=format&fit=crop&w=700&q=80',caption:'Open Plan Desking',       brand:'plan b',           cat:'tables'},
+  {src:'https://images.unsplash.com/photo-1586023492125-27b2c045efd7?auto=format&fit=crop&w=700&q=80',caption:'Luxury Reception Seating',brand:'Holly Hunt',        cat:'lounge'},
+  {src:'https://images.unsplash.com/photo-1524758631624-e2822e304c36?auto=format&fit=crop&w=700&q=80',caption:'Collaborative Lounge',    brand:'Keilhauer',        cat:'lounge'},
+  {src:'https://images.unsplash.com/photo-1555041469-a586c61ea9bc?auto=format&fit=crop&w=700&q=80',caption:'375 Lounge Chair',          brand:'Walter Knoll',     cat:'lounge'},
+  {src:'https://images.unsplash.com/photo-1618221195710-dd6b41faaea6?auto=format&fit=crop&w=700&q=80',caption:'Soft Work Lounge',        brand:'Walter Knoll',     cat:'lounge'},
+  {src:'https://images.unsplash.com/photo-1507652313519-d4e9174996dd?auto=format&fit=crop&w=700&q=80',caption:'Gong Crystal Pendant',    brand:'Gallotti & Radice',cat:'lighting'},
+  {src:'https://images.unsplash.com/photo-1497366412874-3415097a27e7?auto=format&fit=crop&w=700&q=80',caption:'Architectural Ceiling Light',brand:'Gallotti & Radice',cat:'lighting'},
+  {src:'https://images.unsplash.com/photo-1513506003901-1e6a35791f5a?auto=format&fit=crop&w=700&q=80',caption:'Pendant Light — Dining',  brand:'Gallotti & Radice',cat:'lighting'},
+  {src:'https://images.unsplash.com/photo-1443157736-1576f99cb4f8?auto=format&fit=crop&w=700&q=80',caption:'Statement Floor Lamp',      brand:'Gallotti & Radice',cat:'lighting'},
+  {src:'https://images.unsplash.com/photo-1604328698692-f76ea9498e76?auto=format&fit=crop&w=700&q=80',caption:'Executive Suite — Law Firm',brand:'plan b',          cat:'spaces'},
+  {src:'https://images.unsplash.com/photo-1497366216548-37526070297c?auto=format&fit=crop&w=700&q=80',caption:'Deloitte — Bay Street',   brand:'plan b',           cat:'spaces'},
+  {src:'https://images.unsplash.com/photo-1462826303086-329426d1aef5?auto=format&fit=crop&w=700&q=80',caption:'Boardroom — Financial Firm',brand:'plan b',          cat:'spaces'},
+  {src:'https://images.unsplash.com/photo-1521737711867-e3b97375f902?auto=format&fit=crop&w=700&q=80',caption:'Team Collaboration Space',brand:'plan b',           cat:'spaces'},
+];
+
+let _lastRaw = '__uninitialised__';
+
+function renderGallery(items){
+  const grid = document.getElementById('galGrid');
+
+  // Remove placeholder
+  const ph = document.getElementById('galPlaceholder');
+  if(ph) ph.remove();
+
+  // Wipe all existing gallery items completely
+  grid.querySelectorAll('.gal-item').forEach(el=>el.remove());
+
+  // Render fresh
+  items.forEach(img=>{
+    addGalItem(img.src, img.caption||img.cap||'', img.brand||'', img.cat||'spaces', !!img.uploaded, img.id||null);
+  });
+
+  // Re-apply current active filter
+  const activeTab = document.querySelector('.gtab.on');
+  if(activeTab) activeTab.click();
+
+  // Scan new images for fit system
+  setTimeout(_scanGalImages, 100);
+}
+
+function loadAdminGallery(){
+  try{
+    const raw = localStorage.getItem(ADMIN_KEY) || '';
+
+    // No change — skip
+    if(raw === _lastRaw) return;
+    _lastRaw = raw;
+
+    if(!raw){
+      // No admin data yet — show seed
+      renderGallery(SEED_GALLERY);
+      return;
+    }
+
+    const items = JSON.parse(raw);
+    if(!Array.isArray(items) || items.length === 0){
+      renderGallery(SEED_GALLERY);
+      return;
+    }
+
+    // Admin data exists — use it exclusively
+    renderGallery(items);
+
+  }catch(e){
+    console.warn('Gallery sync error:', e);
+    renderGallery(SEED_GALLERY);
+  }
+}
+
+// ── SYNC LISTENERS ──────────────────────────────────
+
+// BroadcastChannel: instant push from admin (same browser, any tab)
+try{
+  const ch = new BroadcastChannel('planb_sync');
+  ch.onmessage = () => { _lastRaw = '__force__'; loadAdminGallery(); };
+}catch(e){}
+
+// localStorage event: catches changes when admin is in a different tab
+window.addEventListener('storage', e=>{
+  if(e.key === ADMIN_KEY){ _lastRaw = '__force__'; loadAdminGallery(); }
+});
+
+// postMessage: from admin preview iframe
+window.addEventListener('message', e=>{
+  if(e.data?.type === 'planb_reload'){ _lastRaw = '__force__'; loadAdminGallery(); }
+});
+
+// Polling: safety net every 2 seconds
+setInterval(loadAdminGallery, 2000);
+
+// Boot: run immediately on page load
+loadAdminGallery();
+
+/* ══════════════════════════════════════════════════════
+   CONTACT FORM
+══════════════════════════════════════════════════════ */
+function submitForm(){
+  const btn = document.getElementById('formBtn');
+  btn.textContent = 'Thank you — we\'ll be in touch shortly.';
+  btn.style.background = 'var(--gold)';
+  btn.disabled = true;
+}
+</script>
+</body>
+</html>
