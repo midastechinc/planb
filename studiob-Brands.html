@@ -1,0 +1,675 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1.0">
+<title>Brand Gallery — Studio B Toronto</title>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;1,300;1,400&family=Tenor+Sans&family=EB+Garamond:ital,wght@0,300;0,400;1,300&display=swap" rel="stylesheet">
+<style>
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+:root{
+  --ink:#0d0c0a;--deep:#0f0d0a;--ink2:#1a1814;
+  --gold:#b8975a;--gold2:#d4b47c;
+  --cream:#f6f2ec;--parch:#ede8df;--linen:#f9f6f1;
+  --warm:#8a8070;
+  --serif:'Playfair Display',Georgia,serif;
+  --sans:'Tenor Sans',Georgia,serif;
+  --body:'EB Garamond',Georgia,serif;
+  --pad:clamp(20px,5vw,80px);
+  --ease:cubic-bezier(.16,1,.3,1);
+}
+html{scroll-behavior:smooth}
+body{font-family:var(--sans);background:var(--linen);color:var(--ink);overflow-x:hidden;-webkit-font-smoothing:antialiased;cursor:none}
+::-webkit-scrollbar{width:3px}::-webkit-scrollbar-thumb{background:var(--gold)}
+body::before{content:'';position:fixed;inset:0;z-index:9000;pointer-events:none;opacity:.02;background-image:url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");background-size:160px}
+
+/* CURSOR */
+#cur{position:fixed;width:8px;height:8px;border-radius:50%;background:var(--gold);pointer-events:none;z-index:9999;left:-20px;top:-20px;transform:translate(-50%,-50%);transition:transform .1s}
+#ring{position:fixed;width:32px;height:32px;border-radius:50%;border:1px solid rgba(184,151,90,.45);pointer-events:none;z-index:9998;left:-20px;top:-20px;transform:translate(-50%,-50%);transition:transform .3s var(--ease)}
+
+/* NAV */
+nav{position:fixed;top:0;left:0;right:0;z-index:500;height:68px;display:flex;align-items:center;justify-content:space-between;padding:0 var(--pad);transition:background .4s}
+nav.sc{background:rgba(13,12,10,.93);backdrop-filter:blur(18px);border-bottom:.5px solid rgba(184,151,90,.15)}
+.logo{font-family:var(--sans);font-size:14px;letter-spacing:.28em;text-transform:uppercase;color:#fff;text-decoration:none}
+.logo span{color:var(--gold)}
+.nav-mid{position:absolute;left:50%;transform:translateX(-50%);display:flex;list-style:none}
+.nav-mid a{font-family:var(--sans);font-size:10.5px;letter-spacing:.16em;text-transform:uppercase;color:rgba(255,255,255,.7);text-decoration:none;padding:0 14px;line-height:68px;position:relative;transition:color .2s}
+.nav-mid a::after{content:'';position:absolute;bottom:16px;left:14px;right:14px;height:.5px;background:var(--gold);transform:scaleX(0);transform-origin:left;transition:transform .3s var(--ease)}
+.nav-mid a:hover,.nav-mid a.on{color:#fff}
+.nav-mid a.on::after{transform:scaleX(1)}
+.back{font-family:var(--sans);font-size:10px;letter-spacing:.18em;text-transform:uppercase;color:rgba(255,255,255,.6);text-decoration:none;display:flex;align-items:center;gap:8px;cursor:none;transition:color .2s}
+.back svg{width:13px;height:13px;stroke:currentColor;fill:none;stroke-width:1;transition:transform .25s}
+.back:hover{color:var(--gold)}
+.back:hover svg{transform:translateX(-3px)}
+
+/* HERO */
+.hero{position:relative;height:62vh;min-height:460px;display:flex;align-items:flex-end;overflow:hidden}
+.hbg{position:absolute;inset:0}
+.hbg img{width:100%;height:100%;object-fit:cover;object-position:center 35%}
+.hdim{position:absolute;inset:0;background:linear-gradient(to top,rgba(10,8,5,.9) 0%,rgba(10,8,5,.3) 55%,transparent 100%)}
+.hrule{position:absolute;left:var(--pad);top:90px;bottom:90px;width:.5px;background:linear-gradient(180deg,transparent,var(--gold) 30%,var(--gold) 70%,transparent);opacity:.35;animation:rGrow 2s .3s var(--ease) both}
+@keyframes rGrow{from{transform:scaleY(0);transform-origin:top}to{transform:scaleY(1)}}
+.hcnt{position:relative;z-index:2;padding:0 var(--pad) 64px calc(var(--pad) + 24px);max-width:800px}
+.hey{font-family:var(--sans);font-size:9px;letter-spacing:.30em;text-transform:uppercase;color:var(--gold);display:flex;align-items:center;gap:12px;margin-bottom:16px;animation:fUp 1s .5s var(--ease) both}
+.hey::before{content:'';width:22px;height:.5px;background:var(--gold)}
+.htitle{font-family:var(--serif);font-size:clamp(38px,5vw,72px);font-weight:400;line-height:1.06;color:#fff;animation:fUp 1s .7s var(--ease) both}
+.htitle em{font-style:italic;font-weight:300}
+.hsub{font-family:var(--body);font-size:15px;font-weight:300;line-height:1.72;color:rgba(255,255,255,.55);margin-top:14px;max-width:520px;animation:fUp 1s .9s var(--ease) both}
+@keyframes fUp{from{opacity:0;transform:translateY(20px)}to{opacity:1;transform:translateY(0)}}
+
+/* FILTER */
+.fbar{background:#fff;border-bottom:.5px solid rgba(184,151,90,.2);position:sticky;top:68px;z-index:200;padding:0 var(--pad)}
+.fi{display:flex;align-items:center;overflow-x:auto;scrollbar-width:none;gap:0}
+.fi::-webkit-scrollbar{display:none}
+.fb{font-family:var(--sans);font-size:9px;letter-spacing:.18em;text-transform:uppercase;color:var(--warm);background:none;border:none;cursor:none;padding:17px 18px 14px 0;white-space:nowrap;position:relative;transition:color .25s;flex-shrink:0}
+.fb::after{content:'';position:absolute;bottom:0;left:0;right:18px;height:.5px;background:var(--ink);transform:scaleX(0);transform-origin:left;transition:transform .3s var(--ease)}
+.fb.on,.fb:hover{color:var(--ink)}
+.fb.on::after{transform:scaleX(1)}
+.fct{margin-left:auto;font-family:var(--sans);font-size:9px;letter-spacing:.12em;color:rgba(140,130,120,.5);padding:17px 0 14px;flex-shrink:0;white-space:nowrap}
+
+/* TICKER */
+.ticker{background:var(--ink);padding:20px 0;overflow:hidden;border-top:.5px solid rgba(184,151,90,.1);border-bottom:.5px solid rgba(184,151,90,.1);position:relative}
+.ticker::before,.ticker::after{content:'';position:absolute;top:0;bottom:0;width:80px;z-index:2}
+.ticker::before{left:0;background:linear-gradient(90deg,var(--ink),transparent)}
+.ticker::after{right:0;background:linear-gradient(-90deg,var(--ink),transparent)}
+.ti{display:flex;animation:tick 40s linear infinite;width:max-content}
+.ti:hover{animation-play-state:paused}
+@keyframes tick{from{transform:translateX(0)}to{transform:translateX(-50%)}}
+.ti-i{font-family:var(--serif);font-size:15px;font-style:italic;color:rgba(255,255,255,.4);white-space:nowrap;padding:0 28px;letter-spacing:.04em;transition:color .25s;cursor:none}
+.ti-i:hover{color:rgba(255,255,255,.8)}
+.ti-d{width:3px;height:3px;border-radius:50%;background:var(--gold);margin:0 28px;flex-shrink:0}
+
+/* SECTION */
+.sec{padding:68px var(--pad)}
+.wl{background:var(--linen)}.ww{background:#fff}.wc{background:var(--cream)}.wp{background:var(--parch)}.wk{background:var(--ink2)}
+.ey{font-family:var(--sans);font-size:9px;letter-spacing:.28em;text-transform:uppercase;color:var(--gold);display:flex;align-items:center;gap:11px;margin-bottom:10px}
+.ey::before{content:'';width:18px;height:.5px;background:var(--gold)}
+.ey-lt{color:rgba(184,151,90,.7)}.ey-lt::before{background:rgba(184,151,90,.7)}
+.bn{font-family:var(--serif);font-size:clamp(26px,3.2vw,42px);font-weight:400;line-height:1.06}
+.bn em{font-style:italic;font-weight:300}
+.bn-lt{color:#fff}
+.bd{font-family:var(--body);font-size:14px;font-weight:300;line-height:1.78;color:var(--warm);max-width:480px;margin-top:10px}
+.bd-lt{color:rgba(255,255,255,.52)}
+.bhdr{display:flex;align-items:flex-end;justify-content:space-between;margin-bottom:40px;gap:24px;flex-wrap:wrap}
+.bl{font-family:var(--sans);font-size:9px;letter-spacing:.20em;text-transform:uppercase;color:var(--gold);text-decoration:none;display:flex;align-items:center;gap:7px;cursor:none;transition:gap .25s;flex-shrink:0;align-self:flex-end}
+.bl:hover{gap:12px}
+.bl svg{width:11px;height:11px;stroke:currentColor;fill:none;stroke-width:1}
+
+/* ==========================================
+   IMAGE SYSTEM — padding-bottom aspect ratio
+   NEVER uses height:100% or flex:1 on images
+   This is the ONLY correct cross-browser way
+========================================== */
+.iw{position:relative;overflow:hidden;width:100%}
+.iw img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;display:block;transition:transform .8s var(--ease)}
+.gi:hover .iw img{transform:scale(1.07)}
+/* aspect ratios via padding-bottom */
+.r43{padding-bottom:75%}
+.r169{padding-bottom:56.25%}
+.r21{padding-bottom:47%}
+.r11{padding-bottom:100%}
+.r23{padding-bottom:150%}
+/* scrim on hover */
+.iw::after{content:'';position:absolute;inset:0;background:rgba(10,8,5,0);transition:background .4s;z-index:1}
+.gi:hover .iw::after{background:rgba(10,8,5,.22)}
+/* tag */
+.tag{position:absolute;top:15px;left:15px;z-index:3;font-family:var(--sans);font-size:7.5px;letter-spacing:.22em;text-transform:uppercase;color:rgba(255,255,255,.8);pointer-events:none}
+/* hover info */
+.inf{position:absolute;bottom:0;left:0;right:0;z-index:4;padding:18px 18px 16px;background:linear-gradient(to top,rgba(10,8,5,.85),transparent);transform:translateY(8px);opacity:0;transition:opacity .35s,transform .35s var(--ease);pointer-events:none}
+.gi:hover .inf{opacity:1;transform:translateY(0)}
+.in-b{font-family:var(--sans);font-size:8px;letter-spacing:.22em;text-transform:uppercase;color:var(--gold);margin-bottom:4px}
+.in-n{font-family:var(--serif);font-size:16px;font-weight:400;color:#fff;line-height:1.2}
+.in-s{font-family:var(--sans);font-size:7.5px;letter-spacing:.14em;text-transform:uppercase;color:rgba(255,255,255,.5);margin-top:3px}
+/* caption */
+.cap{padding:15px 16px 18px;border-top:.5px solid rgba(184,151,90,.18);background:var(--linen)}
+.cap-n{font-family:var(--serif);font-size:17px;font-weight:400;color:var(--ink);margin-bottom:3px;line-height:1.2;position:relative;display:inline-block}
+.cap-n::after{content:'';position:absolute;bottom:-1px;left:0;right:0;height:.5px;background:var(--gold);transform:scaleX(0);transform-origin:left;transition:transform .4s var(--ease)}
+.gi:hover .cap-n::after{transform:scaleX(1)}
+.cap-s{font-family:var(--sans);font-size:9px;letter-spacing:.14em;text-transform:uppercase;color:var(--warm)}
+/* dark section caps auto-adapt */
+.wk .cap{background:#1e1c18;border-top:.5px solid rgba(184,151,90,.2)}
+.wk .cap-n{color:#fff}
+.wk .cap-s{color:rgba(255,255,255,.42)}
+.gi{position:relative;cursor:none;overflow:hidden;background:var(--parch)}
+
+/* GRIDS — simple, reliable, no row-span */
+.g1{display:grid;gap:3px}
+.g2{display:grid;grid-template-columns:1fr 1fr;gap:3px}
+.g3{display:grid;grid-template-columns:repeat(3,1fr);gap:3px}
+.g4{display:grid;grid-template-columns:repeat(4,1fr);gap:3px}
+.gw{display:grid;grid-template-columns:1.55fr 1fr;gap:3px}
+.mt3{margin-top:3px}
+
+/* DIVIDERS */
+.db{background:var(--ink);padding:28px var(--pad);display:flex;align-items:center;justify-content:space-between;border-top:.5px solid rgba(184,151,90,.12);border-bottom:.5px solid rgba(184,151,90,.12)}
+.db-l{font-family:var(--serif);font-style:italic;font-size:clamp(14px,1.5vw,20px);color:rgba(255,255,255,.45)}
+.db-n{font-family:var(--serif);font-size:48px;color:rgba(184,151,90,.14);line-height:1}
+.dq{background:var(--ink2);padding:60px var(--pad);text-align:center;position:relative;overflow:hidden}
+.dq::before{content:'\201C';font-family:var(--serif);font-size:240px;font-style:italic;color:rgba(184,151,90,.05);position:absolute;top:-40px;left:var(--pad);line-height:1;pointer-events:none}
+.dqt{font-family:var(--serif);font-style:italic;font-weight:300;font-size:clamp(16px,2vw,27px);line-height:1.6;color:rgba(255,255,255,.72);max-width:720px;margin:0 auto;position:relative}
+.dqt strong{font-style:normal;font-weight:400;color:#fff}
+
+/* REVEAL */
+.rv{opacity:0;transform:translateY(20px);transition:opacity .9s var(--ease),transform .9s var(--ease)}
+.rv.on{opacity:1;transform:translateY(0)}
+
+/* BUTTONS */
+.btn-g{display:inline-flex;align-items:center;gap:10px;font-family:var(--sans);font-size:10px;letter-spacing:.22em;text-transform:uppercase;color:#fff;padding:14px 30px;border:.5px solid rgba(184,151,90,.55);background:transparent;cursor:none;position:relative;overflow:hidden;transition:color .3s;text-decoration:none}
+.btn-g::before{content:'';position:absolute;inset:0;background:var(--gold);transform:translateX(-101%);transition:transform .4s var(--ease)}
+.btn-g:hover::before{transform:translateX(0)}
+.btn-g:hover{color:var(--ink)}
+.btn-g span,.btn-g svg{position:relative;z-index:1}
+.btn-g svg{width:12px;height:12px;stroke:currentColor;fill:none;stroke-width:1;transition:transform .3s}
+.btn-g:hover svg{transform:translateX(4px)}
+.btn-i{display:inline-flex;align-items:center;gap:10px;font-family:var(--sans);font-size:10px;letter-spacing:.22em;text-transform:uppercase;color:var(--ink);padding:14px 30px;border:.5px solid rgba(13,12,10,.28);background:transparent;cursor:none;position:relative;overflow:hidden;transition:color .3s;text-decoration:none}
+.btn-i::before{content:'';position:absolute;inset:0;background:var(--ink);transform:translateX(-101%);transition:transform .4s var(--ease)}
+.btn-i:hover::before{transform:translateX(0)}
+.btn-i:hover{color:#fff}
+.btn-i span,.btn-i svg{position:relative;z-index:1}
+.btn-i svg{width:12px;height:12px;stroke:currentColor;fill:none;stroke-width:1;transition:transform .3s}
+.btn-i:hover svg{transform:translateX(4px)}
+
+/* BRAND DIRECTORY */
+.dir{padding:68px var(--pad);background:var(--ink2)}
+.dgrid{display:grid;grid-template-columns:repeat(auto-fill,minmax(200px,1fr));gap:1px;border:.5px solid rgba(184,151,90,.08)}
+.di{padding:18px 20px;border:.5px solid rgba(184,151,90,.07);cursor:none;text-decoration:none;display:block;position:relative;transition:background .25s}
+.di:hover{background:rgba(184,151,90,.07)}
+.di-n{font-family:var(--sans);font-size:10px;letter-spacing:.16em;text-transform:uppercase;color:rgba(255,255,255,.66);margin-bottom:4px;transition:color .25s}
+.di-u{font-family:var(--body);font-size:12px;color:rgba(255,255,255,.24);transition:color .25s}
+.di-a{position:absolute;right:16px;top:50%;transform:translateY(-50%);color:rgba(184,151,90,.2);transition:color .25s,right .25s;font-size:13px}
+.di:hover .di-n{color:var(--gold)}
+.di:hover .di-u{color:rgba(184,151,90,.5)}
+.di:hover .di-a{color:var(--gold);right:12px}
+
+/* CTA */
+.cta{background:var(--linen);padding:72px var(--pad);text-align:center}
+.cta-line{width:40px;height:.5px;background:var(--gold);margin:0 auto 20px}
+
+/* FOOTER */
+footer{background:var(--deep);padding:64px var(--pad) 0;border-top:.5px solid rgba(184,151,90,.15)}
+.fg{display:grid;grid-template-columns:2fr 1.2fr 1fr 1fr 1fr 1.3fr;gap:36px;margin-bottom:52px}
+.flogo{height:20px;width:auto;object-fit:contain;filter:brightness(0) invert(1);opacity:.43;margin-bottom:18px;display:block}
+.ftag{font-family:var(--body);font-size:14px;font-weight:300;line-height:1.82;color:rgba(255,255,255,.44);max-width:240px}
+.fch{font-family:var(--sans);font-size:8.5px;letter-spacing:.26em;text-transform:uppercase;color:rgba(184,151,90,.6);margin-bottom:18px;padding-bottom:10px;border-bottom:.5px solid rgba(184,151,90,.1)}
+.fnl input{width:100%;background:transparent;border:none;border-bottom:.5px solid rgba(255,255,255,.12);padding:10px 0;font-family:var(--sans);font-size:13px;color:rgba(255,255,255,.6);outline:none;display:block;margin-bottom:12px;transition:border-color .25s}
+.fnl input::placeholder{color:rgba(255,255,255,.22)}
+.fnl input:focus{border-bottom-color:var(--gold)}
+.fnl button{width:100%;background:var(--gold);border:none;padding:13px;font-family:var(--sans);font-size:9px;letter-spacing:.22em;text-transform:uppercase;color:var(--ink);cursor:none;transition:background .22s}
+.fnl button:hover{background:var(--gold2)}
+.flinks{list-style:none;display:flex;flex-direction:column;gap:10px}
+.flinks a{font-family:var(--sans);font-size:12.5px;color:rgba(255,255,255,.38);text-decoration:none;letter-spacing:.03em;transition:color .22s}
+.flinks a:hover{color:rgba(255,255,255,.84)}
+.faddr{font-family:var(--body);font-size:13px;font-weight:300;line-height:1.82;color:rgba(255,255,255,.38);margin-bottom:16px}
+.fsoc{display:flex;gap:14px;margin-top:18px}
+.fsoc a svg{width:16px;height:16px;fill:rgba(255,255,255,.32);transition:fill .22s}
+.fsoc a:hover svg{fill:var(--gold)}
+.fwm{font-family:var(--serif);font-style:italic;font-size:clamp(72px,15vw,190px);line-height:.82;color:rgba(255,255,255,.04);display:block;text-align:center;user-select:none;white-space:nowrap;letter-spacing:-.01em;overflow:hidden;margin:0 calc(-1*var(--pad))}
+.fbar{display:flex;align-items:center;justify-content:space-between;padding:16px 0 22px;border-top:.5px solid rgba(255,255,255,.06)}
+.fcr{font-family:var(--sans);font-size:10px;letter-spacing:.08em;color:rgba(255,255,255,.24)}
+.fcr a{color:rgba(255,255,255,.36);text-decoration:none;transition:color .22s}
+.fcr a:hover{color:rgba(184,151,90,.68)}
+.fbr{font-family:var(--sans);font-size:10px;letter-spacing:.12em;text-transform:uppercase;color:rgba(255,255,255,.17)}
+
+/* RESPONSIVE */
+@media(max-width:1100px){.g4{grid-template-columns:1fr 1fr}.fg{grid-template-columns:1fr 1fr 1fr}}
+@media(max-width:768px){:root{--pad:20px}.sec{padding:48px var(--pad)}.g3,.gw{grid-template-columns:1fr 1fr}.g4{grid-template-columns:1fr 1fr}.nav-mid{display:none}.fg{grid-template-columns:1fr 1fr}.dgrid{grid-template-columns:1fr 1fr}}
+@media(max-width:480px){.g2,.g3,.g4,.gw{grid-template-columns:1fr}}
+</style>
+</head>
+<body>
+<div id="cur"></div>
+<div id="ring"></div>
+
+<!-- NAV -->
+<nav id="mn">
+  <a class="logo" href="studiob-homepage.html">STUDIO <span>B</span></a>
+  <ul class="nav-mid">
+    <li><a href="studiob-homepage.html">Home</a></li>
+    <li><a href="studiob-homepage.html">Brands</a></li>
+    <li><a href="studiob-homepage.html">Projects</a></li>
+    <li><a href="#" class="on">Gallery</a></li>
+  </ul>
+  <a class="back" href="studiob-homepage.html">
+    <svg viewBox="0 0 24 24" stroke-linecap="round" stroke-linejoin="round"><line x1="19" y1="12" x2="5" y2="12"/><polyline points="12 19 5 12 12 5"/></svg>
+    Back to Home
+  </a>
+</nav>
+
+<!-- HERO -->
+<div class="hero">
+  <div class="hbg"><img src="https://d1pva8ciwv7p9e.cloudfront.net/home/banner/1767622753.jpg" alt="Studio B" loading="eager"></div>
+  <div class="hdim"></div><div class="hrule"></div>
+  <div class="hcnt">
+    <div class="hey">Studio B Toronto — 10 Featured Brands</div>
+    <h1 class="htitle"><em>The Art of</em><br>Considered Living</h1>
+    <p class="hsub">An editorial collection from our featured brand partners — each representing the pinnacle of their craft, available at our 16,000 sq ft showroom on King Street East.</p>
+  </div>
+</div>
+
+<!-- FILTER BAR -->
+<div class="fbar">
+  <div class="fi">
+    <button class="fb on" data-f="all">All Brands</button>
+    <button class="fb" data-f="hh">Holly Hunt</button>
+    <button class="fb" data-f="mc">Molteni&amp;C</button>
+    <button class="fb" data-f="kt">Kettal</button>
+    <button class="fb" data-f="hs">Hästens</button>
+    <button class="fb" data-f="pl">Paola Lenti</button>
+    <button class="fb" data-f="mr">Meridiani</button>
+    <button class="fb" data-f="wk">Walter Knoll</button>
+    <button class="fb" data-f="tc">Tuuci</button>
+    <button class="fb" data-f="dd">Dedon</button>
+    <button class="fb" data-f="hg">Henge</button>
+    <span class="fct" id="fct">All 10 Featured Brands</span>
+  </div>
+</div>
+
+<!-- TICKER -->
+<div class="ticker"><div class="ti">
+  <span class="ti-i">Holly Hunt</span><div class="ti-d"></div><span class="ti-i">Molteni&amp;C</span><div class="ti-d"></div><span class="ti-i">Kettal</span><div class="ti-d"></div><span class="ti-i">Hästens</span><div class="ti-d"></div><span class="ti-i">Paola Lenti</span><div class="ti-d"></div><span class="ti-i">Meridiani</span><div class="ti-d"></div><span class="ti-i">Walter Knoll</span><div class="ti-d"></div><span class="ti-i">Tuuci</span><div class="ti-d"></div><span class="ti-i">Dedon</span><div class="ti-d"></div><span class="ti-i">Henge</span><div class="ti-d"></div>
+  <span class="ti-i">Holly Hunt</span><div class="ti-d"></div><span class="ti-i">Molteni&amp;C</span><div class="ti-d"></div><span class="ti-i">Kettal</span><div class="ti-d"></div><span class="ti-i">Hästens</span><div class="ti-d"></div><span class="ti-i">Paola Lenti</span><div class="ti-d"></div><span class="ti-i">Meridiani</span><div class="ti-d"></div><span class="ti-i">Walter Knoll</span><div class="ti-d"></div><span class="ti-i">Tuuci</span><div class="ti-d"></div><span class="ti-i">Dedon</span><div class="ti-d"></div><span class="ti-i">Henge</span><div class="ti-d"></div>
+</div></div>
+
+<!-- ===== 01 HOLLY HUNT ===== -->
+<div class="sec wl" data-b="hh" id="hh">
+  <div class="bhdr rv">
+    <div><div class="ey">Featured Brand 01</div><div class="bn">Holly <em>Hunt</em></div><p class="bd">Holly Hunt Studios celebrates forty years of innovation, craftsmanship and quality — designing the vessel for personal expression in the world's most beautiful interiors.</p></div>
+    <a class="bl" href="https://www.hollyhunt.com/" target="_blank">hollyhunt.com <svg viewBox="0 0 24 24" stroke-linecap="round" stroke-linejoin="round"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg></a>
+  </div>
+  <div class="g1 rv"><div class="gi"><div class="iw r169"><img src="https://d1pva8ciwv7p9e.cloudfront.net/featured_brand/1724912619.27833jpg" alt="Holly Hunt" loading="lazy"><div class="tag">Living</div><div class="inf"><div class="in-b">Holly Hunt</div><div class="in-n">Playa Sectional</div><div class="in-s">Living Collection</div></div></div><div class="cap"><div class="cap-n">Playa Sectional</div><div class="cap-s">Holly Hunt</div></div></div></div>
+  <div class="g3 mt3">
+    <div class="gi rv"><div class="iw r43"><img src="https://d1pva8ciwv7p9e.cloudfront.net/images/news/1690826553.jpg" alt="HH40" loading="lazy"><div class="tag">Collection</div><div class="inf"><div class="in-b">Holly Hunt</div><div class="in-n">HH40 Collection</div><div class="in-s">40 Years of Innovation</div></div></div><div class="cap"><div class="cap-n">HH40 Collection</div><div class="cap-s">Holly Hunt Studios</div></div></div>
+    <div class="gi rv"><div class="iw r43"><img src="https://d1pva8ciwv7p9e.cloudfront.net/rooms/1718190091.png" alt="Dining" loading="lazy"><div class="tag">Dining</div><div class="inf"><div class="in-b">Holly Hunt</div><div class="in-n">Dining Collection</div><div class="in-s">Contract &amp; Residential</div></div></div><div class="cap"><div class="cap-n">Dining Collection</div><div class="cap-s">Holly Hunt</div></div></div>
+    <div class="gi rv"><div class="iw r43"><img src="https://d1pva8ciwv7p9e.cloudfront.net/images/news/1720442689.jpg" alt="Designer" loading="lazy"><div class="tag">Collaboration</div><div class="inf"><div class="in-b">Holly Hunt</div><div class="in-n">Designer Series</div><div class="in-s">In Conversation</div></div></div><div class="cap"><div class="cap-n">Designer Series</div><div class="cap-s">Holly Hunt</div></div></div>
+  </div>
+</div>
+<div class="db rv"><span class="db-l">"Forty years of innovation, craftsmanship and quality"</span><span class="db-n">01</span></div>
+
+<!-- ===== 02 MOLTENI&C ===== -->
+<div class="sec ww" data-b="mc" id="mc">
+  <div class="bhdr rv">
+    <div><div class="ey">Featured Brand 02</div><div class="bn">Molteni<em>&amp;C</em></div><p class="bd">The Molteni&amp;C Indoor Collection combines multiple designers across disciplines and eras to create a harmonious selection built upon the concept of the holistic home.</p></div>
+    <a class="bl" href="https://www.molteni.it/am/" target="_blank">molteni.it <svg viewBox="0 0 24 24" stroke-linecap="round" stroke-linejoin="round"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg></a>
+  </div>
+  <div class="g3 rv">
+    <div class="gi"><div class="iw r43"><img src="https://d1pva8ciwv7p9e.cloudfront.net/featured_brand/1724912600.40208jpg" alt="Molteni" loading="lazy"><div class="tag">Indoor</div><div class="inf"><div class="in-b">Molteni&amp;C</div><div class="in-n">Indoor Collection</div><div class="in-s">2024 Highlights</div></div></div><div class="cap"><div class="cap-n">Indoor Collection</div><div class="cap-s">Molteni&amp;C</div></div></div>
+    <div class="gi rv"><div class="iw r43"><img src="https://d1pva8ciwv7p9e.cloudfront.net/rooms/1720425226.png" alt="Augusto" loading="lazy"><div class="tag">Living</div><div class="inf"><div class="in-b">Molteni&amp;C</div><div class="in-n">Augusto Sofa</div><div class="in-s">Indoor Collection</div></div></div><div class="cap"><div class="cap-n">Augusto Sofa</div><div class="cap-s">Molteni&amp;C</div></div></div>
+    <div class="gi rv"><div class="iw r43"><img src="https://d1pva8ciwv7p9e.cloudfront.net/images/news/1720425421.jpg" alt="2023" loading="lazy"><div class="tag">New Collection</div><div class="inf"><div class="in-b">Molteni&amp;C</div><div class="in-n">2023 Collection</div><div class="in-s">Vincent Van Duysen</div></div></div><div class="cap"><div class="cap-n">2023 Collection</div><div class="cap-s">Molteni&amp;C</div></div></div>
+  </div>
+  <div class="g4 mt3">
+    <div class="gi rv"><div class="iw r43"><img src="https://d1pva8ciwv7p9e.cloudfront.net/rooms/1718189935.png" alt="Kitchen" loading="lazy"><div class="tag">Kitchen</div><div class="inf"><div class="in-b">Molteni&amp;C</div><div class="in-n">Ratio Kitchen</div><div class="in-s">Dada Division</div></div></div><div class="cap"><div class="cap-n">Ratio Kitchen</div><div class="cap-s">Molteni&amp;C</div></div></div>
+    <div class="gi rv"><div class="iw r43"><img src="https://d1pva8ciwv7p9e.cloudfront.net/rooms/1718189996.png" alt="Gliss" loading="lazy"><div class="tag">Walk-In</div><div class="inf"><div class="in-b">Molteni&amp;C</div><div class="in-n">Gliss Master</div><div class="in-s">Walk-In Wardrobe</div></div></div><div class="cap"><div class="cap-n">Gliss Master Walk-In</div><div class="cap-s">Molteni&amp;C</div></div></div>
+    <div class="gi rv"><div class="iw r43"><img src="https://d1pva8ciwv7p9e.cloudfront.net/rooms/1720437697.png" alt="Ovidio" loading="lazy"><div class="tag">Bedroom</div><div class="inf"><div class="in-b">Molteni&amp;C</div><div class="in-n">Ovidio Bed</div><div class="in-s">Bedroom Collection</div></div></div><div class="cap"><div class="cap-n">Ovidio Bed</div><div class="cap-s">Molteni&amp;C</div></div></div>
+    <div class="gi rv"><div class="iw r43"><img src="https://d1pva8ciwv7p9e.cloudfront.net/images/news/1720431159.jpg" alt="D154" loading="lazy"><div class="tag">Heritage</div><div class="inf"><div class="in-b">Molteni&amp;C</div><div class="in-n">Round D.154.5</div><div class="in-s">Gio Ponti Design</div></div></div><div class="cap"><div class="cap-n">Round D.154.5</div><div class="cap-s">Gio Ponti for Molteni&amp;C</div></div></div>
+  </div>
+</div>
+<div class="dq rv"><p class="dqt">Living is once again central to every corner of the home —<br><strong>a theatre of life experienced, where quality of environment is the key premise.</strong></p></div>
+
+<!-- ===== 03 KETTAL ===== -->
+<div class="sec wp" data-b="kt" id="kt">
+  <div class="bhdr rv">
+    <div><div class="ey">Featured Brand 03</div><div class="bn">Ket<em>tal</em></div><p class="bd">Kettal creates collections that bridge indoors and outdoors — refined outdoor furniture for those who demand the same level of design excellence under open skies as within their home.</p></div>
+    <a class="bl" href="https://www.kettal.com/" target="_blank">kettal.com <svg viewBox="0 0 24 24" stroke-linecap="round" stroke-linejoin="round"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg></a>
+  </div>
+  <div class="g3 rv">
+    <div class="gi"><div class="iw r43"><img src="https://d1pva8ciwv7p9e.cloudfront.net/featured_brand/1724912579.93604jpg" alt="Kettal" loading="lazy"><div class="tag">Outdoor</div><div class="inf"><div class="in-b">Kettal</div><div class="in-n">Outdoor Collection</div><div class="in-s">Luxury Outdoor Living</div></div></div><div class="cap"><div class="cap-n">Outdoor Collection</div><div class="cap-s">Kettal</div></div></div>
+    <div class="gi rv"><div class="iw r43"><img src="https://d1pva8ciwv7p9e.cloudfront.net/images/project/1720431248.png" alt="Fisher Island" loading="lazy"><div class="tag">Project</div><div class="inf"><div class="in-b">Kettal</div><div class="in-n">Fisher Island Residence</div><div class="in-s">Molo, Boma &amp; Roll</div></div></div><div class="cap"><div class="cap-n">Fisher Island, Miami</div><div class="cap-s">Kettal</div></div></div>
+    <div class="gi rv"><div class="iw r43"><img src="https://d1pva8ciwv7p9e.cloudfront.net/images/project/1720432083.png" alt="Pendry" loading="lazy"><div class="tag">Hospitality</div><div class="inf"><div class="in-b">Kettal</div><div class="in-n">Wharf Pendry Hotel</div><div class="in-s">Washington DC</div></div></div><div class="cap"><div class="cap-n">Wharf Pendry Hotel</div><div class="cap-s">Kettal — Washington DC</div></div></div>
+  </div>
+</div>
+<div class="db rv"><span class="db-l">"Design excellence for open-air living"</span><span class="db-n">03</span></div>
+
+<!-- ===== 04 HASTENS ===== -->
+<div class="sec ww" data-b="hs" id="hs">
+  <div class="bhdr rv">
+    <div><div class="ey">Featured Brand 04</div><div class="bn">Häs<em>tens</em></div><p class="bd">Since 1852, Hästens has crafted beds of unparalleled quality using natural materials — hand-stitched by master craftspeople in Köping, Sweden. The world's finest sleep experience.</p></div>
+    <a class="bl" href="https://www.hastens.com/en/" target="_blank">hastens.com <svg viewBox="0 0 24 24" stroke-linecap="round" stroke-linejoin="round"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg></a>
+  </div>
+  <div class="g3 rv">
+    <div class="gi"><div class="iw r43"><img src="https://d1pva8ciwv7p9e.cloudfront.net/featured_brand/1724912556.30578jpg" alt="Hastens Bed" loading="lazy"><div class="tag">Sleep</div><div class="inf"><div class="in-b">Hästens</div><div class="in-n">Luxury Bed Collection</div><div class="in-s">Handcrafted in Sweden since 1852</div></div></div><div class="cap"><div class="cap-n">Luxury Bed Collection</div><div class="cap-s">Hästens — Sweden</div></div></div>
+    <div class="gi rv"><div class="iw r43"><img src="https://d1pva8ciwv7p9e.cloudfront.net/rooms/1718190091.png" alt="Bedroom" loading="lazy"><div class="tag">Bedroom</div><div class="inf"><div class="in-b">Hästens</div><div class="in-n">Bedroom Environment</div><div class="in-s">Natural Materials</div></div></div><div class="cap"><div class="cap-n">Bedroom Setting</div><div class="cap-s">Hästens</div></div></div>
+    <div class="gi rv"><div class="iw r43"><img src="https://d1pva8ciwv7p9e.cloudfront.net/images/home/1720681464.png" alt="Showroom" loading="lazy"><div class="tag">Showroom</div><div class="inf"><div class="in-b">Hästens</div><div class="in-n">Studio B Showroom</div><div class="in-s">King Street, Toronto</div></div></div><div class="cap"><div class="cap-n">Studio B Showroom</div><div class="cap-s">Hästens at Studio B</div></div></div>
+  </div>
+</div>
+
+<!-- ===== 05 PAOLA LENTI ===== -->
+<div class="sec wc" data-b="pl" id="pl">
+  <div class="bhdr rv">
+    <div><div class="ey">Featured Brand 05</div><div class="bn">Paola <em>Lenti</em></div><p class="bd">Paola Lenti designs outdoor and indoor collections with a distinctive aesthetic — where artisanal craft, bold colour and innovative materials converge to create objects of enduring beauty.</p></div>
+    <a class="bl" href="https://www.paolalenti.it/en/" target="_blank">paolalenti.it <svg viewBox="0 0 24 24" stroke-linecap="round" stroke-linejoin="round"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg></a>
+  </div>
+  <div class="g3 rv">
+    <div class="gi"><div class="iw r43"><img src="https://d1pva8ciwv7p9e.cloudfront.net/featured_brand/1724912828.34036jpg" alt="Paola Lenti" loading="lazy"><div class="tag">Featured</div><div class="inf"><div class="in-b">Paola Lenti</div><div class="in-n">Signature Collection</div><div class="in-s">Artisanal Design</div></div></div><div class="cap"><div class="cap-n">Signature Collection</div><div class="cap-s">Paola Lenti</div></div></div>
+    <div class="gi rv"><div class="iw r43"><img src="https://d1pva8ciwv7p9e.cloudfront.net/rooms/1718190091.png" alt="Dining" loading="lazy"><div class="tag">Dining</div><div class="inf"><div class="in-b">Paola Lenti</div><div class="in-n">Dining Setting</div><div class="in-s">Bold Colour &amp; Craft</div></div></div><div class="cap"><div class="cap-n">Dining Setting</div><div class="cap-s">Paola Lenti</div></div></div>
+    <div class="gi rv"><div class="iw r43"><img src="https://d1pva8ciwv7p9e.cloudfront.net/images/project/1720431248.png" alt="Outdoor" loading="lazy"><div class="tag">Outdoor</div><div class="inf"><div class="in-b">Paola Lenti</div><div class="in-n">Walt Sectional</div><div class="in-s">Outdoor Living</div></div></div><div class="cap"><div class="cap-n">Walt Sectional</div><div class="cap-s">Paola Lenti</div></div></div>
+  </div>
+</div>
+<div class="dq rv"><p class="dqt">Studio B represents a curated collection of globally recognised brands —<br><strong>each at the top of their category in the luxury furniture market.</strong></p></div>
+
+<!-- ===== 06 MERIDIANI ===== -->
+<div class="sec wl" data-b="mr" id="mr">
+  <div class="bhdr rv">
+    <div><div class="ey">Featured Brand 06</div><div class="bn">Meri<em>diani</em></div><p class="bd">A coherent journey through organic, welcoming forms — where simplicity converses with tailoring craftsmanship and material solidity balances visual lightness.</p></div>
+    <a class="bl" href="https://meridiani.it/en" target="_blank">meridiani.it <svg viewBox="0 0 24 24" stroke-linecap="round" stroke-linejoin="round"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg></a>
+  </div>
+  <div class="g1 rv"><div class="gi"><div class="iw r21"><img src="https://d1pva8ciwv7p9e.cloudfront.net/featured_brand/1724912512.23337jpg" alt="Meridiani" loading="lazy"><div class="tag">Collection Overview</div><div class="inf"><div class="in-b">Meridiani</div><div class="in-n">Living Collection</div><div class="in-s">Italian Craftsmanship</div></div></div><div class="cap"><div class="cap-n">Living Collection</div><div class="cap-s">Meridiani</div></div></div></div>
+  <div class="g3 mt3">
+    <div class="gi rv"><div class="iw r43"><img src="https://d1pva8ciwv7p9e.cloudfront.net/rooms/1720425226.png" alt="Sofas" loading="lazy"><div class="tag">Sofas</div><div class="inf"><div class="in-b">Meridiani</div><div class="in-n">Sofa Collection</div><div class="in-s">Living Spaces</div></div></div><div class="cap"><div class="cap-n">Sofa Collection</div><div class="cap-s">Meridiani</div></div></div>
+    <div class="gi rv"><div class="iw r43"><img src="https://d1pva8ciwv7p9e.cloudfront.net/rooms/1720437697.png" alt="Bedroom" loading="lazy"><div class="tag">Bedroom</div><div class="inf"><div class="in-b">Meridiani</div><div class="in-n">Bedroom Collection</div><div class="in-s">Sleep</div></div></div><div class="cap"><div class="cap-n">Bedroom Collection</div><div class="cap-s">Meridiani</div></div></div>
+    <div class="gi rv"><div class="iw r43"><img src="https://d1pva8ciwv7p9e.cloudfront.net/images/project/1720431715.jpg" alt="Sofia Miami" loading="lazy"><div class="tag">Project</div><div class="inf"><div class="in-b">Meridiani</div><div class="in-n">Sofia Miami</div><div class="in-s">Contract Project</div></div></div><div class="cap"><div class="cap-n">Sofia Miami</div><div class="cap-s">Meridiani Contract</div></div></div>
+  </div>
+</div>
+<div class="db rv"><span class="db-l">"Organic, welcoming forms — simplicity and tailoring craftsmanship"</span><span class="db-n">06</span></div>
+
+<!-- ===== 07 WALTER KNOLL ===== -->
+<div class="sec wp" data-b="wk" id="wk">
+  <div class="bhdr rv">
+    <div><div class="ey">Featured Brand 07</div><div class="bn">Walter <em>Knoll</em></div><p class="bd">The furniture brand of modernity. Walter Knoll brings quality into every room — enhancing personal well-being through timeless design, rooted in true values and built for generations.</p></div>
+    <a class="bl" href="https://www.walterknoll.de/en" target="_blank">walterknoll.de <svg viewBox="0 0 24 24" stroke-linecap="round" stroke-linejoin="round"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg></a>
+  </div>
+  <div class="g1 rv"><div class="gi"><div class="iw r169"><img src="https://d1pva8ciwv7p9e.cloudfront.net/featured_brand/1724914875.37956jpg" alt="Walter Knoll" loading="lazy"><div class="tag">Living</div><div class="inf"><div class="in-b">Walter Knoll</div><div class="in-n">Landscape 755 Sectional</div><div class="in-s">Design by EOOS</div></div></div><div class="cap"><div class="cap-n">Landscape 755 Sectional</div><div class="cap-s">Walter Knoll — Design by EOOS</div></div></div></div>
+  <div class="g4 mt3">
+    <div class="gi rv"><div class="iw r43"><img src="https://d1pva8ciwv7p9e.cloudfront.net/rooms/1718190091.png" alt="Dining" loading="lazy"><div class="tag">Dining</div><div class="inf"><div class="in-b">Walter Knoll</div><div class="in-n">Mateo Dining Table</div><div class="in-s">Tables &amp; Chairs</div></div></div><div class="cap"><div class="cap-n">Dining Collection</div><div class="cap-s">Walter Knoll</div></div></div>
+    <div class="gi rv"><div class="iw r43"><img src="https://d1pva8ciwv7p9e.cloudfront.net/images/home/1720681464.png" alt="Showroom" loading="lazy"><div class="tag">Showroom</div><div class="inf"><div class="in-b">Walter Knoll</div><div class="in-n">King Street Showroom</div><div class="in-s">Toronto</div></div></div><div class="cap"><div class="cap-n">Showroom Display</div><div class="cap-s">Walter Knoll at Studio B</div></div></div>
+    <div class="gi rv"><div class="iw r43"><img src="https://d1pva8ciwv7p9e.cloudfront.net/rooms/1720425226.png" alt="Seating" loading="lazy"><div class="tag">Seating</div><div class="inf"><div class="in-b">Walter Knoll</div><div class="in-n">Vostra Chair</div><div class="in-s">Lounge Seating</div></div></div><div class="cap"><div class="cap-n">Vostra Chair</div><div class="cap-s">Walter Knoll</div></div></div>
+    <div class="gi rv"><div class="iw r43"><img src="https://d1pva8ciwv7p9e.cloudfront.net/images/project/1720432083.png" alt="Project" loading="lazy"><div class="tag">Project</div><div class="inf"><div class="in-b">Walter Knoll</div><div class="in-n">Contract Project</div><div class="in-s">Hospitality</div></div></div><div class="cap"><div class="cap-n">Contract Project</div><div class="cap-s">Walter Knoll</div></div></div>
+  </div>
+</div>
+
+<!-- ===== 08 TUUCI ===== -->
+<div class="sec wk" data-b="tc" id="tc">
+  <div class="bhdr rv">
+    <div><div class="ey ey-lt">Featured Brand 08</div><div class="bn bn-lt">Tu<em>uci</em></div><p class="bd bd-lt">Tuuci engineers the world's most innovative shade and outdoor living systems — where design excellence meets uncompromising performance.</p></div>
+    <a class="bl" href="https://www.tuuci.com/" target="_blank">tuuci.com <svg viewBox="0 0 24 24" stroke-linecap="round" stroke-linejoin="round"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg></a>
+  </div>
+  <div class="g3 rv">
+    <div class="gi"><div class="iw r43"><img src="https://d1pva8ciwv7p9e.cloudfront.net/featured_brand/1724912471.14390jpg" alt="Tuuci" loading="lazy"><div class="tag">Shade</div><div class="inf"><div class="in-b">Tuuci</div><div class="in-n">Parasol Collection</div><div class="in-s">Shade Architecture</div></div></div><div class="cap"><div class="cap-n">Parasol Collection</div><div class="cap-s">Tuuci</div></div></div>
+    <div class="gi rv"><div class="iw r43"><img src="https://d1pva8ciwv7p9e.cloudfront.net/images/project/1720431248.png" alt="Residential" loading="lazy"><div class="tag">Residential</div><div class="inf"><div class="in-b">Tuuci</div><div class="in-n">Residential Shade</div><div class="in-s">Outdoor Living</div></div></div><div class="cap"><div class="cap-n">Residential Collection</div><div class="cap-s">Tuuci</div></div></div>
+    <div class="gi rv"><div class="iw r43"><img src="https://d1pva8ciwv7p9e.cloudfront.net/images/project/1720431715.jpg" alt="Hospitality" loading="lazy"><div class="tag">Hospitality</div><div class="inf"><div class="in-b">Tuuci</div><div class="in-n">Commercial Grade</div><div class="in-s">Contract Projects</div></div></div><div class="cap"><div class="cap-n">Commercial Grade</div><div class="cap-s">Tuuci</div></div></div>
+  </div>
+</div>
+<div class="db rv"><span class="db-l">"Engineering innovation for the open air"</span><span class="db-n">08</span></div>
+
+<!-- ===== 09 DEDON ===== -->
+<div class="sec ww" data-b="dd" id="dd">
+  <div class="bhdr rv">
+    <div><div class="ey">Featured Brand 09</div><div class="bn">De<em>don</em></div><p class="bd">Revel in life under the open skies. Skilled artisan weavers use DEDON's own high-quality synthetic fibre to create lavishly enduring outdoor furniture — Canada's exclusive distributor.</p></div>
+    <a class="bl" href="https://www.dedon.de/" target="_blank">dedon.de <svg viewBox="0 0 24 24" stroke-linecap="round" stroke-linejoin="round"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg></a>
+  </div>
+  <div class="g1 rv"><div class="gi"><div class="iw r169"><img src="https://d1pva8ciwv7p9e.cloudfront.net/featured_brand/1724912435.40825jpg" alt="Dedon" loading="lazy"><div class="tag">Outdoor Woven</div><div class="inf"><div class="in-b">Dedon</div><div class="in-n">Mbrace Collection</div><div class="in-s">Design by Sebastian Herkner</div></div></div><div class="cap"><div class="cap-n">Mbrace Collection</div><div class="cap-s">Dedon — Sebastian Herkner</div></div></div></div>
+  <div class="g2 mt3">
+    <div class="gi rv"><div class="iw r169"><img src="https://d1pva8ciwv7p9e.cloudfront.net/images/news/1720442689.jpg" alt="Herkner" loading="lazy"><div class="tag">Designer</div><div class="inf"><div class="in-b">Dedon</div><div class="in-n">Sebastian Herkner</div><div class="in-s">In Conversation with Studio B</div></div></div><div class="cap"><div class="cap-n">In Conversation</div><div class="cap-s">Dedon × Studio B</div></div></div>
+    <div class="gi rv"><div class="iw r169"><img src="https://d1pva8ciwv7p9e.cloudfront.net/images/project/1720431715.jpg" alt="Sofia" loading="lazy"><div class="tag">Project</div><div class="inf"><div class="in-b">Dedon</div><div class="in-n">Sofia Miami</div><div class="in-s">Outdoor Contract</div></div></div><div class="cap"><div class="cap-n">Sofia Miami</div><div class="cap-s">Dedon</div></div></div>
+  </div>
+</div>
+
+<!-- ===== 10 HENGE ===== -->
+<div class="sec wl" data-b="hg" id="hg">
+  <div class="bhdr rv">
+    <div><div class="ey">Featured Brand 10</div><div class="bn">He<em>nge</em></div><p class="bd">Henge creates extraordinary furniture and objects at the threshold between art and design — sculptural pieces crafted from the most precious materials, for the most considered interiors.</p></div>
+    <a class="bl" href="https://www.henge07.com/" target="_blank">henge07.com <svg viewBox="0 0 24 24" stroke-linecap="round" stroke-linejoin="round"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg></a>
+  </div>
+  <div class="g3 rv">
+    <div class="gi"><div class="iw r43"><img src="https://d1pva8ciwv7p9e.cloudfront.net/featured_brand/1724912313.30154jpg" alt="Henge" loading="lazy"><div class="tag">Signature</div><div class="inf"><div class="in-b">Henge</div><div class="in-n">Checkmate Cabinet</div><div class="in-s">Art Meets Design</div></div></div><div class="cap"><div class="cap-n">Checkmate Cabinet</div><div class="cap-s">Henge</div></div></div>
+    <div class="gi rv"><div class="iw r43"><img src="https://d1pva8ciwv7p9e.cloudfront.net/rooms/1718189996.png" alt="Interior" loading="lazy"><div class="tag">Interior</div><div class="inf"><div class="in-b">Henge</div><div class="in-n">Living Environment</div><div class="in-s">Precious Materials</div></div></div><div class="cap"><div class="cap-n">Living Environment</div><div class="cap-s">Henge</div></div></div>
+    <div class="gi rv"><div class="iw r43"><img src="https://d1pva8ciwv7p9e.cloudfront.net/images/news/1720431159.jpg" alt="Sculptural" loading="lazy"><div class="tag">Accent</div><div class="inf"><div class="in-b">Henge</div><div class="in-n">Sculptural Objects</div><div class="in-s">Objects of Art</div></div></div><div class="cap"><div class="cap-n">Sculptural Objects</div><div class="cap-s">Henge</div></div></div>
+  </div>
+</div>
+<div class="dq rv"><p class="dqt">Our brand partners are at the top of their categories in the luxury furniture market —<br><strong>offering the very best in indoor and outdoor furniture, kitchens, closets, bathrooms and lighting.</strong></p></div>
+
+<!-- ALL BRANDS DIRECTORY -->
+<div class="dir" id="allbrands">
+  <div style="margin-bottom:40px" class="rv">
+    <div class="ey ey-lt">Complete Portfolio</div>
+    <h2 class="bn bn-lt">All Studio B <em>Brands</em></h2>
+    <p class="bd bd-lt" style="margin-top:10px">All brands available to explore at our 380 King Street East showroom in Toronto.</p>
+  </div>
+  <div class="dgrid rv">
+    <a class="di" href="https://abigailozorasimpson.com/" target="_blank"><div class="di-n">Abigail Ozora</div><div class="di-u">abigailozorasimpson.com</div><span class="di-a">↗</span></a>
+    <a class="di" href="https://www.ak47design.com/" target="_blank"><div class="di-n">AK47</div><div class="di-u">ak47design.com</div><span class="di-a">↗</span></a>
+    <a class="di" href="https://www.aneesupholstery.com/" target="_blank"><div class="di-n">Anees</div><div class="di-u">aneesupholstery.com</div><span class="di-a">↗</span></a>
+    <a class="di" href="https://www.arrmet.it/en/" target="_blank"><div class="di-n">Arrmet</div><div class="di-u">arrmet.it</div><span class="di-a">↗</span></a>
+    <a class="di" href="https://articolostudios.com/" target="_blank"><div class="di-n">Articolo</div><div class="di-u">articolostudios.com</div><span class="di-a">↗</span></a>
+    <a class="di" href="https://www.ateliervierkant.com/" target="_blank"><div class="di-n">Atelier Vierkant</div><div class="di-u">ateliervierkant.com</div><span class="di-a">↗</span></a>
+    <a class="di" href="https://www.bakerfurniture.com/" target="_blank"><div class="di-n">Baker</div><div class="di-u">bakerfurniture.com</div><span class="di-a">↗</span></a>
+    <a class="di" href="https://us.baobabcollection.com/" target="_blank"><div class="di-n">Baobab</div><div class="di-u">baobabcollection.com</div><span class="di-a">↗</span></a>
+    <a class="di" href="https://www.baxter.it/it" target="_blank"><div class="di-n">Baxter</div><div class="di-u">baxter.it</div><span class="di-a">↗</span></a>
+    <a class="di" href="https://castedesign.com/" target="_blank"><div class="di-n">Caste</div><div class="di-u">castedesign.com</div><span class="di-a">↗</span></a>
+    <a class="di" href="https://www.coedition.fr/en/" target="_blank"><div class="di-n">Coedition</div><div class="di-u">coedition.fr</div><span class="di-a">↗</span></a>
+    <a class="di" href="https://corbinbronze.com/" target="_blank"><div class="di-n">Corbin Bronze</div><div class="di-u">corbinbronze.com</div><span class="di-a">↗</span></a>
+    <a class="di" href="https://www.danaoliving.com/" target="_blank"><div class="di-n">Danao</div><div class="di-u">danaoliving.com</div><span class="di-a">↗</span></a>
+    <a class="di" href="https://www.davisfurniture.com/" target="_blank"><div class="di-n">Davis</div><div class="di-u">davisfurniture.com</div><span class="di-a">↗</span></a>
+    <a class="di" href="https://www.decastelli.com/en/collection/" target="_blank"><div class="di-n">Decastelli</div><div class="di-u">decastelli.com</div><span class="di-a">↗</span></a>
+    <a class="di" href="https://www.dedon.de/" target="_blank"><div class="di-n">Dedon</div><div class="di-u">dedon.de</div><span class="di-a">↗</span></a>
+    <a class="di" href="https://www.desede.ch/en" target="_blank"><div class="di-n">DeSede</div><div class="di-u">desede.ch</div><span class="di-a">↗</span></a>
+    <a class="di" href="https://draga-aurel.com/" target="_blank"><div class="di-n">Draga &amp; Aurel</div><div class="di-u">draga-aurel.com</div><span class="di-a">↗</span></a>
+    <a class="di" href="https://www.etegarden.ca/" target="_blank"><div class="di-n">Été</div><div class="di-u">etegarden.ca</div><span class="di-a">↗</span></a>
+    <a class="di" href="https://exteta.it/en/" target="_blank"><div class="di-n">Exteta</div><div class="di-u">exteta.it</div><span class="di-a">↗</span></a>
+    <a class="di" href="https://www.extremis.com/en/products" target="_blank"><div class="di-n">Extremis</div><div class="di-u">extremis.com</div><span class="di-a">↗</span></a>
+    <a class="di" href="https://www.fastspa.com/" target="_blank"><div class="di-n">Fast</div><div class="di-u">fastspa.com</div><span class="di-a">↗</span></a>
+    <a class="di" href="https://www.frag.it/en/" target="_blank"><div class="di-n">Frag</div><div class="di-u">frag.it</div><span class="di-a">↗</span></a>
+    <a class="di" href="https://www.freifrau.com/en" target="_blank"><div class="di-n">Freifrau</div><div class="di-u">freifrau.com</div><span class="di-a">↗</span></a>
+    <a class="di" href="https://www.gallottiradice.it/en-us/home-page" target="_blank"><div class="di-n">Gallotti &amp; Radice</div><div class="di-u">gallottiradice.it</div><span class="di-a">↗</span></a>
+    <a class="di" href="https://www.hastens.com/en/" target="_blank"><div class="di-n">Hästens</div><div class="di-u">hastens.com</div><span class="di-a">↗</span></a>
+    <a class="di" href="https://www.henge07.com/" target="_blank"><div class="di-n">Henge</div><div class="di-u">henge07.com</div><span class="di-a">↗</span></a>
+    <a class="di" href="https://www.hermanmiller.com/" target="_blank"><div class="di-n">Herman Miller</div><div class="di-u">hermanmiller.com</div><span class="di-a">↗</span></a>
+    <a class="di" href="https://www.hershdesign.com/" target="_blank"><div class="di-n">Hersh</div><div class="di-u">hershdesign.com</div><span class="di-a">↗</span></a>
+    <a class="di" href="https://www.hollyhunt.com/" target="_blank"><div class="di-n">Holly Hunt</div><div class="di-u">hollyhunt.com</div><span class="di-a">↗</span></a>
+    <a class="di" href="https://www.imperfettolab.com/en/" target="_blank"><div class="di-n">Imperfetto Lab</div><div class="di-u">imperfettolab.com</div><span class="di-a">↗</span></a>
+    <a class="di" href="https://www.kettal.com/" target="_blank"><div class="di-n">Kettal</div><div class="di-u">kettal.com</div><span class="di-a">↗</span></a>
+    <a class="di" href="https://www.kff.de/en/index" target="_blank"><div class="di-n">KFF</div><div class="di-u">kff.de</div><span class="di-a">↗</span></a>
+    <a class="di" href="https://www.kymo.de/en/" target="_blank"><div class="di-n">Kymo</div><div class="di-u">kymo.de</div><span class="di-a">↗</span></a>
+    <a class="di" href="https://www.lapalma.it/en" target="_blank"><div class="di-n">Lapalma</div><div class="di-u">lapalma.it</div><span class="di-a">↗</span></a>
+    <a class="di" href="https://www.lodes.com/en/" target="_blank"><div class="di-n">Lodes</div><div class="di-u">lodes.com</div><span class="di-a">↗</span></a>
+    <a class="di" href="https://www.mambounlimitedideas.com/" target="_blank"><div class="di-n">Mambo</div><div class="di-u">mambounlimitedideas.com</div><span class="di-a">↗</span></a>
+    <a class="di" href="https://www.markalbrechtstudio.com/" target="_blank"><div class="di-n">Mark Albrecht</div><div class="di-u">markalbrechtstudio.com</div><span class="di-a">↗</span></a>
+    <a class="di" href="https://www.bakerfurniture.com/design-story/mcguire/" target="_blank"><div class="di-n">McGuire</div><div class="di-u">bakerfurniture.com</div><span class="di-a">↗</span></a>
+    <a class="di" href="https://www.mcroskeysf.com/" target="_blank"><div class="di-n">McRoskey</div><div class="di-u">mcroskeysf.com</div><span class="di-a">↗</span></a>
+    <a class="di" href="https://meridiani.it/en" target="_blank"><div class="di-n">Meridiani</div><div class="di-u">meridiani.it</div><span class="di-a">↗</span></a>
+    <a class="di" href="https://michaelanastassiades.com/" target="_blank"><div class="di-n">Michael Anastassiades</div><div class="di-u">michaelanastassiades.com</div><span class="di-a">↗</span></a>
+    <a class="di" href="https://www.molteni.it/am/" target="_blank"><div class="di-n">Molteni&amp;C</div><div class="di-u">molteni.it</div><span class="di-a">↗</span></a>
+    <a class="di" href="http://www.paganistudio.com/" target="_blank"><div class="di-n">Pagani</div><div class="di-u">paganistudio.com</div><span class="di-a">↗</span></a>
+    <a class="di" href="https://www.paolalenti.it/en/" target="_blank"><div class="di-n">Paola Lenti</div><div class="di-u">paolalenti.it</div><span class="di-a">↗</span></a>
+    <a class="di" href="https://www.pedrali.com/en-us" target="_blank"><div class="di-n">Pedrali</div><div class="di-u">pedrali.com</div><span class="di-a">↗</span></a>
+    <a class="di" href="https://www.rizz.design/" target="_blank"><div class="di-n">Rizz</div><div class="di-u">rizz.design</div><span class="di-a">↗</span></a>
+    <a class="di" href="https://robertkuo.com/" target="_blank"><div class="di-n">Robert Kuo</div><div class="di-u">robertkuo.com</div><span class="di-a">↗</span></a>
+    <a class="di" href="https://www.rodaonline.com/" target="_blank"><div class="di-n">Roda</div><div class="di-u">rodaonline.com</div><span class="di-a">↗</span></a>
+    <a class="di" href="https://www.rossgardam.com.au/" target="_blank"><div class="di-n">Ross Gardam</div><div class="di-u">rossgardam.com.au</div><span class="di-a">↗</span></a>
+    <a class="di" href="https://rsbarcelona.com/en/" target="_blank"><div class="di-n">RS Barcelona</div><div class="di-u">rsbarcelona.com</div><span class="di-a">↗</span></a>
+    <a class="di" href="https://www.santambrogiomilano.com/" target="_blank"><div class="di-n">Santambrogio</div><div class="di-u">santambrogiomilano.com</div><span class="di-a">↗</span></a>
+    <a class="di" href="https://www.sferra.com/" target="_blank"><div class="di-n">Sferra</div><div class="di-u">sferra.com</div><span class="di-a">↗</span></a>
+    <a class="di" href="https://shakuff.com/" target="_blank"><div class="di-n">Shakuff</div><div class="di-u">shakuff.com</div><span class="di-a">↗</span></a>
+    <a class="di" href="https://thierry-lemaire.fr/en/" target="_blank"><div class="di-n">Thierry Lemaire</div><div class="di-u">thierry-lemaire.fr</div><span class="di-a">↗</span></a>
+    <a class="di" href="https://www.tuuci.com/" target="_blank"><div class="di-n">Tuuci</div><div class="di-u">tuuci.com</div><span class="di-a">↗</span></a>
+    <a class="di" href="https://www.uhlmann-giantumbrellas.com/" target="_blank"><div class="di-n">Uhlmann</div><div class="di-u">uhlmann-giantumbrellas.com</div><span class="di-a">↗</span></a>
+    <a class="di" href="https://www.vitra.com/en-ca/home" target="_blank"><div class="di-n">Vitra</div><div class="di-u">vitra.com</div><span class="di-a">↗</span></a>
+    <a class="di" href="https://www.walterknoll.de/en" target="_blank"><div class="di-n">Walter Knoll</div><div class="di-u">walterknoll.de</div><span class="di-a">↗</span></a>
+  </div>
+</div>
+
+<!-- CTA -->
+<div class="cta rv">
+  <div class="cta-line"></div>
+  <h2 style="font-family:var(--serif);font-size:clamp(28px,3.6vw,48px);font-weight:400;line-height:1.1;margin-bottom:18px">Experience every brand <em>in person</em></h2>
+  <p style="font-family:var(--body);font-size:15px;font-weight:300;line-height:1.78;color:var(--warm);max-width:500px;margin:0 auto 36px">All 10 featured brands available at our 16,000 sq ft showroom at 380 King Street East, Toronto.</p>
+  <div style="display:flex;align-items:center;justify-content:center;gap:16px;flex-wrap:wrap">
+    <a href="studiob-homepage.html" class="btn-i"><span>Back to Homepage</span><svg viewBox="0 0 24 24" stroke-linecap="round" stroke-linejoin="round"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg></a>
+    <a href="mailto:info@studiobhome.com" class="btn-g"><span>Book an Appointment</span><svg viewBox="0 0 24 24" stroke-linecap="round" stroke-linejoin="round"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg></a>
+  </div>
+</div>
+
+<!-- FOOTER -->
+<footer>
+  <div class="fg">
+    <div>
+      <img class="flogo" src="https://d1pva8ciwv7p9e.cloudfront.net/images/design/1705375102.jpg" alt="Studio B">
+      <p class="ftag">Since 1999, we've curated the world's most exceptional designs — craftsmanship, care, and modern luxury, shaping spaces that endure.</p>
+    </div>
+    <div>
+      <div class="fch">Stay in Touch</div>
+      <div class="fnl"><input type="text" placeholder="Your Name"><input type="email" placeholder="Your Email"><button>Subscribe</button></div>
+    </div>
+    <div>
+      <div class="fch">Featured Brands</div>
+      <ul class="flinks">
+        <li><a href="#hh">Holly Hunt</a></li><li><a href="#mc">Molteni&amp;C</a></li><li><a href="#kt">Kettal</a></li><li><a href="#hs">Hästens</a></li><li><a href="#pl">Paola Lenti</a></li>
+      </ul>
+    </div>
+    <div>
+      <div class="fch">&nbsp;</div>
+      <ul class="flinks" style="margin-top:18px">
+        <li><a href="#mr">Meridiani</a></li><li><a href="#wk">Walter Knoll</a></li><li><a href="#tc">Tuuci</a></li><li><a href="#dd">Dedon</a></li><li><a href="#hg">Henge</a></li>
+      </ul>
+    </div>
+    <div>
+      <div class="fch">Studio B</div>
+      <ul class="flinks">
+        <li><a href="studiob-homepage.html">Homepage</a></li><li><a href="#">Projects</a></li><li><a href="#">Services</a></li><li><a href="#">Contact Us</a></li>
+      </ul>
+    </div>
+    <div>
+      <div class="fch">Visit Us</div>
+      <p class="faddr">380 King Street East<br>Toronto, Ontario M5A 1K9</p>
+      <p class="faddr">Mon–Fri: 9:30am–5:30pm<br>Sat: By Appointment</p>
+      <div class="fsoc">
+        <a href="https://www.instagram.com/studiobhome/" aria-label="Instagram"><svg viewBox="0 0 24 24"><path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948 0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98-1.281-.059-1.69-.073-4.949-.073zm0 5.838c-3.403 0-6.162 2.759-6.162 6.162s2.759 6.163 6.162 6.163 6.162-2.759 6.162-6.163c0-3.403-2.759-6.162-6.162-6.162zm0 10.162c-2.209 0-4-1.79-4-4 0-2.209 1.791-4 4-4s4 1.791 4 4c0 2.21-1.791 4-4 4zm6.406-11.845c-.796 0-1.441.645-1.441 1.44s.645 1.44 1.441 1.44c.795 0 1.439-.645 1.439-1.44s-.644-1.44-1.439-1.44z"/></svg></a>
+        <a href="https://www.facebook.com/studiobhome" aria-label="Facebook"><svg viewBox="0 0 24 24"><path d="M24 12.073c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.99 4.388 10.954 10.125 11.854v-8.385H7.078v-3.47h3.047V9.43c0-3.007 1.792-4.669 4.533-4.669 1.312 0 2.686.235 2.686.235v2.953H15.83c-1.491 0-1.956.925-1.956 1.874v2.25h3.328l-.532 3.47h-2.796v8.385C19.612 23.027 24 18.062 24 12.073z"/></svg></a>
+      </div>
+    </div>
+  </div>
+  <span class="fwm">Studio B</span>
+  <div class="fbar">
+    <span class="fcr">© 2024 Studio B &nbsp;·&nbsp; <a href="tel:+14163632996">416-363-2996</a> &nbsp;·&nbsp; <a href="mailto:info@studiobhome.com">info@studiobhome.com</a></span>
+    <span class="fbr">Brand Gallery</span>
+  </div>
+</footer>
+
+<script>
+const cur=document.getElementById('cur'),ring=document.getElementById('ring');
+let mx=0,my=0,rx=0,ry=0;
+document.addEventListener('mousemove',e=>{mx=e.clientX;my=e.clientY;cur.style.left=mx+'px';cur.style.top=my+'px'});
+(function a(){rx+=(mx-rx)*.12;ry+=(my-ry)*.12;ring.style.left=rx+'px';ring.style.top=ry+'px';requestAnimationFrame(a)})();
+document.querySelectorAll('button,a,.gi,.fb,.di').forEach(el=>{
+  el.addEventListener('mouseenter',()=>{cur.style.transform='translate(-50%,-50%) scale(2.2)';ring.style.opacity='.15'});
+  el.addEventListener('mouseleave',()=>{cur.style.transform='translate(-50%,-50%) scale(1)';ring.style.opacity='1'});
+});
+window.addEventListener('scroll',()=>{document.getElementById('mn').classList.toggle('sc',window.scrollY>30)},{passive:true});
+const obs=new IntersectionObserver(entries=>{entries.forEach(e=>{if(e.isIntersecting){e.target.classList.add('on');obs.unobserve(e.target)}})},{threshold:0.05,rootMargin:'0px 0px -20px 0px'});
+document.querySelectorAll('.rv').forEach((el,i)=>{
+  const sib=[...el.parentElement.children].filter(c=>c.classList.contains('rv'));
+  el.style.transitionDelay=(sib.indexOf(el)*0.07)+'s';
+  obs.observe(el);
+});
+const secs=document.querySelectorAll('[data-b]');
+document.querySelectorAll('.fb').forEach(btn=>{
+  btn.addEventListener('click',()=>{
+    document.querySelectorAll('.fb').forEach(b=>b.classList.remove('on'));
+    btn.classList.add('on');
+    const f=btn.dataset.f;
+    let cnt=0;
+    secs.forEach(s=>{const show=f==='all'||s.dataset.b===f;s.style.display=show?'block':'none';if(show)cnt++;});
+    document.getElementById('fct').textContent=f==='all'?'All 10 Featured Brands':cnt+' brand'+(cnt!==1?'s':'');
+    if(f!=='all'){const first=document.getElementById(f);if(first)setTimeout(()=>first.scrollIntoView({behavior:'smooth',block:'start'}),100);}
+  });
+});
+document.querySelectorAll('a[href^="#"]').forEach(a=>{
+  a.addEventListener('click',e=>{const t=document.querySelector(a.getAttribute('href'));if(t){e.preventDefault();t.scrollIntoView({behavior:'smooth',block:'start'})}});
+});
+
+/* ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+   AUTO IMAGE SIZE EQUALIZER
+   Forces all .iw (image wrappers) inside each grid row
+   to share the same height — eliminates empty gaps
+   regardless of aspect ratio, column width, or image load.
+   Runs on: load, resize, font-load, after filter clicks.
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ */
+function equalizeImages() {
+  // Step 1: reset all overrides so we measure natural sizes
+  document.querySelectorAll('.iw').forEach(iw => {
+    iw.style.paddingBottom = '';
+    iw.style.height = '';
+  });
+
+  // Step 2: group .gi cards by their visual row within each parent grid
+  document.querySelectorAll('.g1,.g2,.g3,.g4,.gw').forEach(grid => {
+    // Only process grids that are visible (not hidden by filter)
+    if (grid.closest('[data-b]') && grid.closest('[data-b]').style.display === 'none') return;
+
+    const cards = Array.from(grid.querySelectorAll(':scope > .gi'));
+    if (cards.length < 2) return;
+
+    // Group cards into visual rows by comparing their top offset
+    const rows = [];
+    let currentRow = [];
+    let currentTop = null;
+
+    cards.forEach(card => {
+      const top = Math.round(card.getBoundingClientRect().top + window.scrollY);
+      if (currentTop === null || Math.abs(top - currentTop) > 4) {
+        if (currentRow.length) rows.push(currentRow);
+        currentRow = [card];
+        currentTop = top;
+      } else {
+        currentRow.push(card);
+      }
+    });
+    if (currentRow.length) rows.push(currentRow);
+
+    // Step 3: for each row, find the tallest .iw and set all to match
+    rows.forEach(row => {
+      if (row.length < 2) return;
+      const wrappers = row.map(c => c.querySelector('.iw')).filter(Boolean);
+      if (!wrappers.length) return;
+
+      // Get natural rendered heights (from padding-bottom %)
+      const heights = wrappers.map(iw => {
+        const computed = getComputedStyle(iw);
+        // padding-bottom % is relative to element's own width
+        const w = iw.offsetWidth;
+        const pb = parseFloat(computed.paddingBottom);
+        return pb || (w * 0.75); // fallback to 4:3 if no padding
+      });
+
+      const maxH = Math.max(...heights);
+
+      // Force all wrappers in this row to the tallest height
+      wrappers.forEach(iw => {
+        iw.style.paddingBottom = '0';
+        iw.style.height = maxH + 'px';
+      });
+    });
+  });
+}
+
+// Run immediately after DOM is ready
+equalizeImages();
+
+// Re-run after all images have loaded (they affect layout)
+window.addEventListener('load', equalizeImages);
+
+// Re-run on resize with debounce
+let resizeTimer;
+window.addEventListener('resize', () => {
+  clearTimeout(resizeTimer);
+  resizeTimer = setTimeout(equalizeImages, 120);
+}, {passive: true});
+
+// Re-run after font load (fonts shift layout slightly)
+if (document.fonts && document.fonts.ready) {
+  document.fonts.ready.then(equalizeImages);
+}
+
+// Re-run after filter buttons change visibility
+document.querySelectorAll('.fb').forEach(btn => {
+  btn.addEventListener('click', () => setTimeout(equalizeImages, 50));
+});
+
+// Re-run when images actually finish loading (CDN images load async)
+document.querySelectorAll('.gi img').forEach(img => {
+  if (img.complete) return;
+  img.addEventListener('load', () => setTimeout(equalizeImages, 50));
+  img.addEventListener('error', () => setTimeout(equalizeImages, 50));
+});
+</script>
+</body>
+</html>
